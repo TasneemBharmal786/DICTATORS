@@ -1,0 +1,2065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" type="image/x-icon" href="favicon.ico" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAMPUS PULSE AI | pulse.rvce.edu.in | Institutional Intelligence Platform</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 500: '#e11d48', 600: '#be123c', 700: '#9f1239' },
+            silver: {
+              50: '#f8fafc',
+              100: '#f1f5f9',
+              200: '#e2e8f0',
+              300: '#cbd5e1',
+              400: '#94a3b8',
+              500: '#64748b',
+              600: '#475569',
+              700: '#334155',
+              800: '#1e293b',
+              900: '#0f172a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #cbd5e1;
+      background-image: 
+        radial-gradient(circle at 12% 15%, rgba(244, 63, 94, 0.09) 0%, transparent 45%),
+        radial-gradient(circle at 88% 12%, rgba(239, 68, 68, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 50% 85%, rgba(236, 72, 153, 0.09) 0%, transparent 50%),
+        linear-gradient(135deg, #e6ebf2 0%, #cbd5e1 35%, #e2e8f0 70%, #c5cfdb 100%);
+      background-attachment: fixed;
+      color: #0f172a;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 10px 30px -5px rgba(225, 29, 72, 0.07), 0 4px 14px -2px rgba(100, 116, 139, 0.12);
+    }
+    .admin-panel {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(244, 63, 94, 0.35);
+      box-shadow: 0 16px 36px -5px rgba(225, 29, 72, 0.14), 0 6px 18px -3px rgba(100, 116, 139, 0.15);
+    }
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: #e2e8f0; }
+    ::-webkit-scrollbar-thumb { background: #f43f5e; border-radius: 9999px; }
+    ::-webkit-scrollbar-thumb:hover { background: #e11d48; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col relative">
+
+  <!-- Top Global Header -->
+  <header class="border-b border-slate-300/80 bg-white/85 backdrop-blur-md sticky top-0 z-40 px-4 py-3 shadow-sm">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <!-- Pulse Logo with glowing red/pink heartbeat -->
+        <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-red-600 via-rose-500 to-pink-500 p-0.5 shadow-md shadow-rose-500/25 flex items-center justify-center">
+          <div class="h-full w-full bg-white rounded-[10px] flex items-center justify-center font-black text-rose-600 text-lg">
+            <svg class="w-5 h-5 text-rose-600 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-black text-lg tracking-tight bg-gradient-to-r from-red-600 via-rose-600 to-pink-600 bg-clip-text text-transparent">
+              CAMPUS PULSE AI
+            </span>
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-600"></span>
+            </span>
+          </div>
+          <p class="text-[10px] font-semibold text-slate-500 hidden sm:block">
+            Institutional Intelligence &amp; Student Success Platform
+          </p>
+        </div>
+        <span id="header-portal-tag" class="text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-md bg-rose-50 text-rose-700 border border-rose-200 ml-2 hidden sm:inline-block">
+          STUDENT PORTAL
+        </span>
+      </div>
+
+      <div id="nav-user-area" class="flex items-center gap-3">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Inactivity Security Warning Banner (if idle) -->
+  <div id="inactivity-warning-banner" class="hidden bg-rose-100 border-b border-rose-300 text-rose-900 px-4 py-2 text-xs text-center font-medium shadow-sm">
+    [Alert] <strong>Session Security Warning:</strong> You have been idle. You will be automatically logged out due to 15 minutes of inactivity in <span id="inactivity-countdown" class="font-black text-rose-600">60</span> seconds.
+  </div>
+
+  <!-- Main View Container -->
+  <main id="app-root" class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+    <!-- Separate Views rendered here -->
+  </main>
+
+  <!-- Floating AI Assistant at the Bottom Right -->
+  <div id="ai-bot-root"></div>
+
+  <!-- Modal Container -->
+  <div id="modal-root"></div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 pointer-events-none"></div>
+
+  <script>
+    // ==========================================
+    // 1. DATA STATE & UNIFIED MODEL
+    // ==========================================
+    const INITIAL_STUDENTS = [
+      {
+        id: 'stu-001',
+        usn: '1RV22CS102',
+        password: 'password123',
+        name: 'Rahul Verma',
+        gender: 'Male',
+        avatarUrl: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80',
+        approvalStatus: 'APPROVED',
+        requestedAt: 'Verified by Dean',
+        sports: { primarySport: 'Cricket & Football', weeklyHours: 4, sportsDelta: '↑ +1h vs baseline', fitnessLevel: 'Intermediate', staminaNeed: 'High' },
+        academic: { department: 'Computer Science & Engineering', semester: 6, cgpa: 7.42, cgpaDelta: '↑ +0.28 vs Sem 5', cgpaTrend: 'UP', activeBacklogs: 0 },
+        attendance: { overallPercentage: 78, attendanceDelta: '↓ -2% vs last month', attendanceTrend: 'DOWN' },
+        lms: { weeklyLogins: 6, assignmentCompletionRate: 85, lmsDelta: '↑ +5% assignment velocity', lmsTrend: 'UP' },
+        placement: { codingScore: 68, codingDelta: '↑ +8 pts post-bootcamp', codingTrend: 'UP', aptitudeScore: 74, mockInterviewRating: 70, placementDriveEligible: false },
+        skills: { technicalIndex: 78, softSkillsRating: 4.2, competencies: ['Data Structures', 'Full-Stack React', 'Node.js', 'PostgreSQL'] },
+        facultyFeedback: { sentiment: 'POSITIVE', advisorName: 'Prof. Ananya Sen (Dept. Mentor)', recentNote: 'Consistent laboratory submissions; recommend intensifying dynamic programming speed rounds for Tier-1 placements.', date: 'Oct 08, 2026' },
+        successScore: { overall: 73 },
+        risk: { academicRisk: 'LOW', placementRisk: 'LOW', primaryRiskReason: 'On track for regular recruitment; coding benchmark improving.' },
+        cohort: { label: 'Consistent All-Rounder', badgeColor: 'bg-rose-50 text-rose-700 border-rose-200' },
+        xaiDrivers: [
+          { feature: 'Solid LMS Assignment Velocity (85%)', impact: 8, type: 'POSITIVE', desc: 'On-time lab assignment submissions.' },
+          { feature: 'Zero Active Backlogs', impact: 10, type: 'POSITIVE', desc: 'Maintains full examination eligibility.' },
+          { feature: 'Coding Assessment Deficit (68/100)', impact: -6, type: 'NEGATIVE', desc: 'Needs 75+ for Tier-1 product cutoffs.' },
+        ],
+        actions: [
+          { title: 'Complete 30-Day DSA Bootcamp', desc: 'Solve 20 medium LeetCode questions.', impact: 8 },
+          { title: 'Book Alumni Mock Interview', desc: 'Practice behavioral and system design.', impact: 5 },
+        ]
+      },
+      {
+        id: 'stu-002',
+        usn: '1RV21IT045',
+        password: 'password123',
+        name: 'Priya Nair',
+        gender: 'Female',
+        avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
+        approvalStatus: 'APPROVED',
+        requestedAt: 'Verified by Dean',
+        sports: { primarySport: 'Badminton & Morning HIIT', weeklyHours: 6, sportsDelta: '↑ +1.5h vs last month', fitnessLevel: 'High', staminaNeed: 'Cognitive Recovery' },
+        academic: { department: 'Information Science & Engineering', semester: 8, cgpa: 9.38, cgpaDelta: '↑ +0.14 vs Sem 7', cgpaTrend: 'UP', activeBacklogs: 0 },
+        attendance: { overallPercentage: 92, attendanceDelta: '↑ +1.5% vs last month', attendanceTrend: 'UP' },
+        lms: { weeklyLogins: 14, assignmentCompletionRate: 98, lmsDelta: '↑ +3% velocity', lmsTrend: 'UP' },
+        placement: { codingScore: 94, codingDelta: '↑ +6 pts post-bootcamp', codingTrend: 'UP', aptitudeScore: 96, mockInterviewRating: 92, placementDriveEligible: true },
+        skills: { technicalIndex: 96, softSkillsRating: 4.9, competencies: ['Distributed Systems', 'PyTorch & AI', 'System Design', 'Cloud Architecture'] },
+        facultyFeedback: { sentiment: 'POSITIVE', advisorName: 'Dr. K. S. Raman (HOD ISE)', recentNote: 'Exemplary academic merit and hackathon leadership. Prime candidate for Super Dream 30+ LPA technology offers.', date: 'Oct 07, 2026' },
+        successScore: { overall: 95 },
+        risk: { academicRisk: 'LOW', placementRisk: 'LOW', primaryRiskReason: 'Top 1% candidate across academics, coding & placements.' },
+        cohort: { label: 'Campus Star / Top Performer', badgeColor: 'bg-pink-100 text-pink-800 border-pink-300' },
+        xaiDrivers: [
+          { feature: 'Outstanding CGPA (9.38)', impact: 19, type: 'POSITIVE', desc: 'Top 1% academic merit.' },
+          { feature: 'Top Tier Coding Benchmark (94/100)', impact: 14, type: 'POSITIVE', desc: 'High algorithmic problem solving speed.' },
+          { feature: '2 Hackathon Victories', impact: 16, type: 'POSITIVE', desc: 'Demonstrated product delivery & prestige.' },
+        ],
+        actions: [
+          { title: 'Lead Peer Mentorship Study Group', desc: 'Earn honors credits by mentoring juniors.', impact: 3 },
+          { title: 'Finalize Open-Source Capstone', desc: 'Prepare repository for international demo day.', impact: 4 },
+        ]
+      },
+      {
+        id: 'stu-004',
+        usn: '1RV22EC088',
+        password: 'password123',
+        name: 'Sneha Rao',
+        gender: 'Female',
+        avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+        approvalStatus: 'APPROVED',
+        requestedAt: 'Verified by Dean',
+        sports: { primarySport: 'Yoga & Morning Walk', weeklyHours: 2, sportsDelta: '↓ -1h vs last month', fitnessLevel: 'Rehabilitation', staminaNeed: 'Health consistency' },
+        academic: { department: 'Electronics & Communication', semester: 6, cgpa: 5.62, cgpaDelta: '↓ -0.42 vs Sem 5', cgpaTrend: 'DOWN', activeBacklogs: 2 },
+        attendance: { overallPercentage: 58, attendanceDelta: '↓ -7% vs last month', attendanceTrend: 'DOWN' },
+        lms: { weeklyLogins: 2, assignmentCompletionRate: 54, lmsDelta: '↓ -8% velocity', lmsTrend: 'DOWN' },
+        placement: { codingScore: 48, codingDelta: '↑ +4 pts post-tutoring', codingTrend: 'UP', aptitudeScore: 52, mockInterviewRating: 50, placementDriveEligible: false },
+        skills: { technicalIndex: 48, softSkillsRating: 3.4, competencies: ['Basic C', 'Digital Logic Circuits', 'Circuit Analysis'] },
+        facultyFeedback: { sentiment: 'NEEDS_ATTENTION', advisorName: 'Prof. Rajeshwari M. (Proctor)', recentNote: 'Severe attendance decline post-medical leave. Critical risk of exam debarment; requires 12 consecutive lectures and remedial sprint.', date: 'Oct 06, 2026' },
+        successScore: { overall: 44 },
+        risk: { academicRisk: 'HIGH', placementRisk: 'MEDIUM', primaryRiskReason: 'Critical dual alert: 2 active backlogs and 58% attendance.' },
+        cohort: { label: 'High Risk of Dropout / Year-Back', badgeColor: 'bg-rose-100 text-rose-800 border-rose-300' },
+        xaiDrivers: [
+          { feature: 'Attendance Shortfall (58%)', impact: -22, type: 'NEGATIVE', desc: 'Breaches mandatory 75% university policy.' },
+          { feature: '2 Active Backlogs Penalty', impact: -16, type: 'NEGATIVE', desc: 'Uncleared prerequisite theory courses.' },
+          { feature: 'Low LMS Engagement (54%)', impact: -8, type: 'NEGATIVE', desc: 'Missing homework and lecture modules.' },
+        ],
+        actions: [
+          { title: 'Enroll in Remedial Fast-Track Cell', desc: 'Target clearing arrears before supplementary exams.', impact: 16 },
+          { title: 'Compensatory Attendance Target', desc: 'Attend next 12 consecutive lectures without absence.', impact: 10 },
+        ]
+      },
+      {
+        id: 'stu-003',
+        usn: '1RV21CS034',
+        password: 'password123',
+        name: 'Arjun Mehta',
+        gender: 'Male',
+        avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+        approvalStatus: 'APPROVED',
+        requestedAt: 'Verified by Dean',
+        sports: { primarySport: 'Table Tennis & Swimming', weeklyHours: 2.5, sportsDelta: '↑ +0.5h vs last month', fitnessLevel: 'Moderate', staminaNeed: 'Stress relief' },
+        academic: { department: 'Computer Science & Engineering', semester: 7, cgpa: 8.86, cgpaDelta: '↑ +0.08 vs Sem 6', cgpaTrend: 'UP', activeBacklogs: 0 },
+        attendance: { overallPercentage: 88, attendanceDelta: '↑ +0.5% vs last month', attendanceTrend: 'UP' },
+        lms: { weeklyLogins: 9, assignmentCompletionRate: 92, lmsDelta: '↑ +2% velocity', lmsTrend: 'UP' },
+        placement: { codingScore: 42, codingDelta: '↓ -4 pts in speed rounds', codingTrend: 'DOWN', aptitudeScore: 68, mockInterviewRating: 46, placementDriveEligible: false },
+        skills: { technicalIndex: 58, softSkillsRating: 3.2, competencies: ['Relational DBMS Theory', 'Compiler Design', 'SQL Optimization'] },
+        facultyFeedback: { sentiment: 'NEEDS_ATTENTION', advisorName: 'Prof. S. R. Hegde (Placement Faculty)', recentNote: 'Excellent theoretical grasp in written exams, but experiences high anxiety and freezes in timed coding interviews.', date: 'Oct 05, 2026' },
+        successScore: { overall: 62 },
+        risk: { academicRisk: 'LOW', placementRisk: 'HIGH', primaryRiskReason: 'High Academic Theory (8.86 CGPA) but Critical Placement Deficit (Coding 42, Mock 46).' },
+        cohort: { label: 'High Academic, Low Placement', badgeColor: 'bg-red-50 text-red-700 border-red-200' },
+        xaiDrivers: [
+          { feature: 'Strong Theoretical CGPA (8.86)', impact: 15, type: 'POSITIVE', desc: 'Top tier classroom written test marks.' },
+          { feature: 'Failed Coding Benchmark (42/100)', impact: -14, type: 'NEGATIVE', desc: 'Struggling with timed live coding rounds.' },
+          { feature: 'Sub-50 Mock Interview (46/100)', impact: -12, type: 'NEGATIVE', desc: 'Low confidence in technical communication.' },
+        ],
+        actions: [
+          { title: 'Mandatory DSA Speed Coding Track', desc: 'Complete daily timed algorithmic challenges.', impact: 11 },
+          { title: 'Schedule 1-on-1 Faculty Mock Interview', desc: 'Rehearse behavioral responses with placement cell.', impact: 9 },
+        ]
+      },
+      {
+        id: 'stu-005',
+        usn: '1RV21AI019',
+        password: 'password123',
+        name: 'Karan Patel',
+        gender: 'Male',
+        avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
+        approvalStatus: 'APPROVED',
+        requestedAt: 'Verified by Dean',
+        sports: { primarySport: 'Basketball & Calisthenics', weeklyHours: 5, sportsDelta: '↑ +1h vs last month', fitnessLevel: 'High', staminaNeed: 'High Endurance' },
+        academic: { department: 'Artificial Intelligence & Data Science', semester: 7, cgpa: 6.64, cgpaDelta: '↑ +0.18 vs Sem 6', cgpaTrend: 'UP', activeBacklogs: 0 },
+        attendance: { overallPercentage: 76, attendanceDelta: '↑ +1% vs last month', attendanceTrend: 'UP' },
+        lms: { weeklyLogins: 8, assignmentCompletionRate: 88, lmsDelta: '↑ +4% velocity', lmsTrend: 'UP' },
+        placement: { codingScore: 96, codingDelta: '↑ +12 pts post-hackathon', codingTrend: 'UP', aptitudeScore: 84, mockInterviewRating: 90, placementDriveEligible: true },
+        skills: { technicalIndex: 95, softSkillsRating: 4.4, competencies: ['PyTorch & NLP', 'Rust Systems', 'Full-Stack Next.js', 'LLM Agentic Pipelines'] },
+        facultyFeedback: { sentiment: 'POSITIVE', advisorName: 'Dr. Vivek Murthy (AI Lab Director)', recentNote: 'Brilliant hands-on hacker and open-source contributor with 3 national hackathon wins. Advised to protect 75% attendance during finals.', date: 'Oct 04, 2026' },
+        successScore: { overall: 78 },
+        risk: { academicRisk: 'MEDIUM', placementRisk: 'LOW', primaryRiskReason: 'Coding Wizard (96/100) with borderline theory attendance.' },
+        cohort: { label: 'Coding Wizard / Practical Innovator', badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
+        xaiDrivers: [
+          { feature: 'Elite Algorithmic Coding Score (96/100)', impact: 18, type: 'POSITIVE', desc: 'Top 0.5% in college LeetCode portal.' },
+          { feature: '3 Hackathon Trophies', impact: 14, type: 'POSITIVE', desc: 'High industry-ready prototype velocity.' },
+          { feature: 'Borderline Attendance Margin (76%)', impact: -6, type: 'NEGATIVE', desc: 'Close to mandatory 75% cutoff.' },
+        ],
+        actions: [
+          { title: 'Theory Lecture Attendance Lock', desc: 'Safeguard attendance above 80% to avoid CIE penalties.', impact: 6 },
+          { title: 'System Architecture Paper Submission', desc: 'Submit hackathon model to IEEE student conference.', impact: 5 },
+        ]
+      },
+      {
+        id: 'stu-006',
+        usn: '1RV22IS076',
+        password: 'password123',
+        name: 'Rohan Joshi',
+        gender: 'Male',
+        avatarUrl: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&auto=format&fit=crop&q=80',
+        approvalStatus: 'APPROVED',
+        requestedAt: 'Verified by Dean',
+        sports: { primarySport: 'Cricket & Gym', weeklyHours: 3.5, sportsDelta: '↑ +0.5h vs baseline', fitnessLevel: 'Intermediate', staminaNeed: 'Active' },
+        academic: { department: 'Information Science & Engineering', semester: 5, cgpa: 6.95, cgpaDelta: '↓ -0.22 vs Sem 4', cgpaTrend: 'DOWN', activeBacklogs: 0 },
+        attendance: { overallPercentage: 74, attendanceDelta: '↓ -4% vs last month', attendanceTrend: 'DOWN' },
+        lms: { weeklyLogins: 2, assignmentCompletionRate: 56, lmsDelta: '↓ -10% velocity', lmsTrend: 'DOWN' },
+        placement: { codingScore: 56, codingDelta: '↓ -2 pts vs last month', codingTrend: 'DOWN', aptitudeScore: 62, mockInterviewRating: 58, placementDriveEligible: false },
+        skills: { technicalIndex: 59, softSkillsRating: 3.8, competencies: ['Linux Shell Scripting', 'Basic Web Development', 'C Basics'] },
+        facultyFeedback: { sentiment: 'NEEDS_ATTENTION', advisorName: 'Prof. Geetha V. (Class Proctor)', recentNote: 'Passive digital engagement; missing consecutive LMS assignment deadlines. Recommending bi-weekly proctor meetings.', date: 'Oct 03, 2026' },
+        successScore: { overall: 59 },
+        risk: { academicRisk: 'MEDIUM', placementRisk: 'HIGH', primaryRiskReason: 'Low LMS Engagement (56%) and Sub-60 Coding Score drag down placement readiness.' },
+        cohort: { label: 'Disengaged LMS / Passive Learner', badgeColor: 'bg-slate-100 text-slate-800 border-slate-300' },
+        xaiDrivers: [
+          { feature: 'LMS Engagement Drop (56%)', impact: -14, type: 'NEGATIVE', desc: 'Only 2 logins/week and 3 overdue assignments.' },
+          { feature: 'Borderline Attendance (74%)', impact: -8, type: 'NEGATIVE', desc: '1% below standard 75% examination threshold.' },
+          { feature: 'Zero Standing Backlogs', impact: 8, type: 'POSITIVE', desc: 'Eligible for remedial supplementary upgrade.' },
+        ],
+        actions: [
+          { title: 'Re-engage Daily LMS Portal Sprint', desc: 'Complete 3 overdue lab assignments before Friday.', impact: 8 },
+          { title: 'DSA Foundations Practice', desc: 'Solve 15 basic array and string problems.', impact: 7 },
+        ]
+      },
+      {
+        id: 'stu-007',
+        usn: '1RV23CS201',
+        password: 'password123',
+        name: 'Vikram Singhania',
+        gender: 'Male',
+        avatarUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80',
+        approvalStatus: 'PENDING',
+        requestedAt: 'Today, 08:45 AM',
+        sports: { primarySport: 'Badminton & Cycling', weeklyHours: 4, sportsDelta: '↑ +1h vs last month', fitnessLevel: 'Intermediate', staminaNeed: 'Active' },
+        academic: { department: 'Computer Science & Engineering', semester: 4, cgpa: 7.20, cgpaDelta: '↑ +0.30 vs Sem 3', cgpaTrend: 'UP', activeBacklogs: 0 },
+        attendance: { overallPercentage: 82, attendanceDelta: '↑ +2% vs last month', attendanceTrend: 'UP' },
+        lms: { weeklyLogins: 6, assignmentCompletionRate: 80, lmsDelta: '↑ +5% velocity', lmsTrend: 'UP' },
+        placement: { codingScore: 64, codingDelta: '↑ +5 pts post-bootcamp', codingTrend: 'UP', aptitudeScore: 70, mockInterviewRating: 65, placementDriveEligible: false },
+        skills: { technicalIndex: 68, softSkillsRating: 4.0, competencies: ['Java OOP', 'Data Structures', 'Spring Boot Basics'] },
+        facultyFeedback: { sentiment: 'POSITIVE', advisorName: 'Prof. Ananya Sen', recentNote: 'Transfer credits verified. Awaiting Dean Dr. Sharma final onboarding authorization.', date: 'Today, 08:45 AM' },
+        successScore: { overall: 66 },
+        risk: { academicRisk: 'LOW', placementRisk: 'MEDIUM', primaryRiskReason: 'Newly registered, awaiting faculty verification.' },
+        cohort: { label: 'Newly Registered', badgeColor: 'bg-rose-50 text-rose-700 border-rose-200' },
+        xaiDrivers: [
+          { feature: 'New Registration Submitted', impact: 10, type: 'POSITIVE', desc: 'Academic records ingested.' },
+          { feature: 'Pending Verification Hold', impact: -5, type: 'NEGATIVE', desc: 'Awaiting Dean authorization.' }
+        ],
+        actions: [
+          { title: 'Faculty Verification', desc: 'Awaiting mentor credential sign-off.', impact: 5 }
+        ]
+      },
+      {
+        id: 'stu-008',
+        usn: '1RV23CS401',
+        password: 'password123',
+        name: 'Meera Iyer',
+        gender: 'Female',
+        avatarUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80',
+        approvalStatus: 'PENDING',
+        requestedAt: 'Today, 09:30 AM',
+        sports: { primarySport: 'Athletics & Yoga', weeklyHours: 4.5, sportsDelta: '↑ +1h vs last month', fitnessLevel: 'High', staminaNeed: 'High' },
+        academic: { department: 'Information Science & Engineering', semester: 5, cgpa: 8.40, cgpaDelta: '↑ +0.45 vs Sem 4', cgpaTrend: 'UP', activeBacklogs: 0 },
+        attendance: { overallPercentage: 89, attendanceDelta: '↑ +3% vs last month', attendanceTrend: 'UP' },
+        lms: { weeklyLogins: 8, assignmentCompletionRate: 92, lmsDelta: '↑ +6% velocity', lmsTrend: 'UP' },
+        placement: { codingScore: 78, codingDelta: '↑ +8 pts post-bootcamp', codingTrend: 'UP', aptitudeScore: 84, mockInterviewRating: 80, placementDriveEligible: true },
+        skills: { technicalIndex: 82, softSkillsRating: 4.6, competencies: ['Microprocessors', 'Embedded C', 'Python Automation', 'IoT Architecture'] },
+        facultyFeedback: { sentiment: 'POSITIVE', advisorName: 'Dr. K. S. Raman', recentNote: 'Polytechnic state gold medallist entrant. Highly engaged; awaiting Dean sign-off to unlock student success portal.', date: 'Today, 09:30 AM' },
+        successScore: { overall: 82 },
+        risk: { academicRisk: 'LOW', placementRisk: 'LOW', primaryRiskReason: 'Lateral entrant with outstanding practical credentials.' },
+        cohort: { label: 'Newly Registered', badgeColor: 'bg-rose-50 text-rose-700 border-rose-200' },
+        xaiDrivers: [
+          { feature: 'Strong Lateral Entry CGPA (8.40)', impact: 14, type: 'POSITIVE', desc: 'High technical diploma foundation.' },
+          { feature: 'Pending Verification Hold', impact: -5, type: 'NEGATIVE', desc: 'Awaiting Dean authorization.' }
+        ],
+        actions: [
+          { title: 'Dean Authorization', desc: 'Sign off to activate personalized success analytics.', impact: 5 }
+        ]
+      }
+    ];
+
+    let students = [...INITIAL_STUDENTS];
+    let currentRoute = 'STUDENT_LOGIN'; // 'STUDENT_LOGIN' | 'ADMIN_LOGIN' | 'STUDENT_REGISTER' | 'STUDENT_DASHBOARD' | 'ADMIN_DASHBOARD'
+    let activeStudentId = 'stu-002';
+    let searchQuery = '';
+    let loginErrorMessage = '';
+
+    // ==========================================
+    // 2. INACTIVITY AUTO-LOGOUT ENGINE (15 MIN)
+    // ==========================================
+    const INACTIVITY_TIMEOUT_MS = 15 * 60 * 1000; // 15 minutes
+    let lastActivityTimestamp = Date.now();
+    let inactivityInterval = null;
+
+    function resetActivity() {
+      lastActivityTimestamp = Date.now();
+      const warningBanner = document.getElementById('inactivity-warning-banner');
+      if (warningBanner) warningBanner.classList.add('hidden');
+    }
+
+    // Bind common user interaction events
+    ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart', 'click'].forEach(evt => {
+      window.addEventListener(evt, resetActivity, { passive: true });
+    });
+
+    // Inactivity heartbeat checker
+    function startInactivityMonitor() {
+      if (inactivityInterval) clearInterval(inactivityInterval);
+      inactivityInterval = setInterval(() => {
+        if (currentRoute === 'STUDENT_DASHBOARD' || currentRoute === 'ADMIN_DASHBOARD') {
+          const idleTime = Date.now() - lastActivityTimestamp;
+          const warningBanner = document.getElementById('inactivity-warning-banner');
+          const countdownSpan = document.getElementById('inactivity-countdown');
+
+          // Show 60s warning when 14 minutes idle
+          if (idleTime >= INACTIVITY_TIMEOUT_MS - 60000 && idleTime < INACTIVITY_TIMEOUT_MS) {
+            const secondsLeft = Math.max(1, Math.round((INACTIVITY_TIMEOUT_MS - idleTime) / 1000));
+            if (warningBanner && countdownSpan) {
+              warningBanner.classList.remove('hidden');
+              countdownSpan.innerText = secondsLeft;
+            }
+          }
+
+          // Full 15-minute timeout reached
+          if (idleTime >= INACTIVITY_TIMEOUT_MS) {
+            triggerInactivityLogout();
+          }
+        }
+      }, 2000);
+    }
+
+    function triggerInactivityLogout() {
+      const warningBanner = document.getElementById('inactivity-warning-banner');
+      if (warningBanner) warningBanner.classList.add('hidden');
+
+      const wasAdmin = (currentRoute === 'ADMIN_DASHBOARD');
+      currentRoute = wasAdmin ? 'ADMIN_LOGIN' : 'STUDENT_LOGIN';
+      loginErrorMessage = 'You have been automatically logged out due to 15 minutes of inactivity for institutional security.';
+      renderApp();
+      showToast('[Alert] Session timed out due to 15 min inactivity.');
+    }
+
+    function simulateInactivityTimeout() {
+      triggerInactivityLogout();
+    }
+
+    // ==========================================
+    // 3. ADITI AI: 360° ACADEMIC & CAMPUS MENTOR
+    // ==========================================
+    let isChatOpen = false;
+    let chatMessages = [];
+
+    function initChatForStudent(student) {
+      const salutation = (student.gender === 'Female') ? 'Miss.' : (student.gender === 'Male' ? 'Mr.' : 'miss/mr.');
+      chatMessages = [
+        {
+          sender: 'bot',
+          text: `Hello **${student.name}**! I'm **Aditi**, your **Campus Pulse AI Mentor**.
+
+**Notice:** Sorry ${salutation} ${student.name}, I am not obligated to answer any question which does not concern the university or ur studies.
+
+You can consult me on:
+• **University Rules:** 75% attendance policy, medical condonation, exam hall tickets & grading.
+• **Academic Mentorship:** Subject doubts (DSA, OS, DBMS), exam strategy & backlog clearance.
+• **Campus Placements:** Tier-1 eligibility cutoffs, coding test preparation & mock interviews.
+• **Campus Facilities & Timetable:** Library timings, lab hours, Dean's office & study schedules.
+
+What university or academic question would you like assistance with today?`
+        }
+      ];
+    }
+
+    // ==========================================
+    // 4. TOAST HELPER
+    // ==========================================
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'mb-2 p-3.5 bg-white border border-rose-300 text-slate-800 rounded-2xl shadow-xl text-xs flex items-center gap-2 pointer-events-auto transition-all transform duration-300';
+      toast.innerHTML = `<span class="text-rose-600 font-bold"></span><span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+
+    // ==========================================
+    // 5. RENDER NAVIGATION
+    // ==========================================
+    function renderNav() {
+      const navArea = document.getElementById('nav-user-area');
+      const portalTag = document.getElementById('header-portal-tag');
+
+      if (currentRoute === 'STUDENT_LOGIN' || currentRoute === 'STUDENT_REGISTER') {
+        portalTag.innerText = 'STUDENT PORTAL';
+        portalTag.className = 'text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-md bg-rose-50 text-rose-700 border border-rose-200 ml-2 hidden sm:inline-block';
+        navArea.innerHTML = `
+          <button onclick="navigateTo('ADMIN_LOGIN')" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white hover:bg-rose-50 text-slate-700 hover:text-rose-600 border border-slate-300 hover:border-rose-300 text-xs font-bold transition shadow-xs">
+            <span>Faculty Admin Portal →</span>
+          </button>
+        `;
+      } else if (currentRoute === 'ADMIN_LOGIN') {
+        portalTag.innerText = 'FACULTY & DEAN GATEWAY';
+        portalTag.className = 'text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-md bg-pink-50 text-pink-700 border border-pink-200 ml-2 hidden sm:inline-block';
+        navArea.innerHTML = `
+          <button onclick="navigateTo('STUDENT_LOGIN')" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white hover:bg-rose-50 text-slate-700 hover:text-rose-600 border border-slate-300 hover:border-rose-300 text-xs font-bold transition shadow-xs">
+            <span>← Student Portal</span>
+          </button>
+        `;
+      } else if (currentRoute === 'ADMIN_DASHBOARD') {
+        portalTag.innerText = 'FACULTY ADMINISTRATION CONSOLE';
+        portalTag.className = 'text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-md bg-rose-100 text-red-700 border border-rose-300 ml-2 hidden sm:inline-block';
+        const pendingCount = students.filter(s => s.approvalStatus === 'PENDING').length;
+        navArea.innerHTML = `
+          <div class="hidden sm:flex items-center gap-1.5 text-[10px] text-slate-600 font-mono bg-white px-3 py-1 rounded-lg border border-slate-300 shadow-xs">
+            <svg class="w-3 h-3 text-slate-500 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>Auto-logout: 15m idle
+          </div>
+          <button onclick="simulateInactivityTimeout()" title="Test 15-Minute Timeout" class="text-[10px] text-rose-600 hover:text-rose-700 underline font-mono hidden sm:inline font-bold">
+            Test 15m Timeout
+          </button>
+          <div class="flex items-center gap-2 bg-white px-3 py-1 rounded-lg border border-slate-300 text-xs shadow-xs">
+            <span class="w-6 h-6 rounded-md bg-gradient-to-r from-red-600 to-pink-600 text-white font-bold flex items-center justify-center text-[10px]">DS</span>
+            <span class="font-bold text-slate-800">Dr. Sharma</span>
+            <span class="text-[10px] text-rose-600 font-bold">(Dean)</span>
+            ${pendingCount > 0 ? `<span class="bg-gradient-to-r from-red-600 to-pink-600 text-white font-extrabold px-1.5 py-0.2 rounded-md text-[10px] ml-1">${pendingCount} Pending</span>` : ''}
+          </div>
+          <button onclick="navigateTo('ADMIN_LOGIN')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-rose-50 text-rose-700 border border-slate-300 hover:border-rose-300 text-xs font-bold transition shadow-xs">
+            Sign Out
+          </button>
+        `;
+      } else if (currentRoute === 'STUDENT_DASHBOARD') {
+        const student = students.find(s => s.id === activeStudentId) || students[0];
+        portalTag.innerText = 'STUDENT SUCCESS INTELLIGENCE';
+        portalTag.className = 'text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-md bg-rose-50 text-rose-700 border border-rose-200 ml-2 hidden sm:inline-block';
+        navArea.innerHTML = `
+          <div class="hidden sm:flex items-center gap-1.5 text-[10px] text-slate-600 font-mono bg-white px-3 py-1 rounded-lg border border-slate-300 shadow-xs">
+            <svg class="w-3 h-3 text-slate-500 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>Auto-logout: 15m idle
+          </div>
+          <button onclick="simulateInactivityTimeout()" title="Test 15-Minute Timeout" class="text-[10px] text-rose-600 hover:text-rose-700 underline font-mono hidden sm:inline font-bold">
+            Test 15m Timeout
+          </button>
+          <div class="flex items-center gap-2 bg-white px-3 py-1 rounded-lg border border-slate-300 text-xs shadow-xs">
+            <img src="${student.avatarUrl}" class="w-6 h-6 rounded-md object-cover ring-1 ring-rose-400" />
+            <span class="font-bold text-slate-800">${student.name}</span>
+            <span class="text-[10px] ${student.approvalStatus === 'APPROVED' ? 'text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded' : 'text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded'} font-bold">
+              [${student.approvalStatus}]
+            </span>
+          </div>
+          <button onclick="navigateTo('STUDENT_LOGIN')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-rose-50 text-rose-700 border border-slate-300 hover:border-rose-300 text-xs font-bold transition shadow-xs">
+            Sign Out
+          </button>
+        `;
+      }
+    }
+
+    // ==========================================
+    // 6. MAIN ROUTER DISPATCHER
+    // ==========================================
+    function renderApp() {
+      renderNav();
+      const root = document.getElementById('app-root');
+
+      switch (currentRoute) {
+        case 'STUDENT_LOGIN':
+          root.innerHTML = renderStudentLoginPage();
+          break;
+        case 'ADMIN_LOGIN':
+          root.innerHTML = renderSeparateAdminLoginPage();
+          break;
+        case 'STUDENT_REGISTER':
+          root.innerHTML = renderStudentRegistrationPage();
+          break;
+        case 'ADMIN_DASHBOARD':
+          root.innerHTML = renderAdminDashboard();
+          break;
+        case 'STUDENT_DASHBOARD':
+          root.innerHTML = renderStudentDashboard();
+          break;
+        case 'PRIVACY_POLICY':
+          root.innerHTML = renderPrivacyPolicyPage();
+          break;
+        case 'TERMS_AND_CONDITIONS':
+          root.innerHTML = renderTermsPage();
+          break;
+      }
+
+      renderAiBot();
+    }
+
+    function navigateTo(route) {
+      currentRoute = route;
+      loginErrorMessage = '';
+      resetActivity();
+      if (route === 'STUDENT_DASHBOARD') {
+        const stu = students.find(s => s.id === activeStudentId) || students[0];
+        initChatForStudent(stu);
+      }
+      renderApp();
+    }
+
+    function clearError() {
+      loginErrorMessage = '';
+      renderApp();
+    }
+
+    // ==========================================
+    // 7. VIEW: STUDENT LOGIN
+    // ==========================================
+    function renderStudentLoginPage() {
+      return `
+        <div class="max-w-md mx-auto py-8 sm:py-12 animate-fadeIn">
+          <div class="text-center mb-8">
+            <div class="h-16 w-16 rounded-2xl bg-gradient-to-tr from-red-600 via-rose-500 to-pink-500 p-0.5 mx-auto mb-3 shadow-xl shadow-rose-500/25 flex items-center justify-center">
+              <div class="h-full w-full bg-white rounded-[14px] flex items-center justify-center text-3xl">
+                <svg class="w-8 h-8 text-rose-600 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-5.824-3.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/></svg>
+              </div>
+            </div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-rose-100 border border-rose-300 text-rose-800 text-[10px] font-black uppercase tracking-wider mb-2">
+              <span>CAMPUS PULSE AI</span> • <span>STUDENT PORTAL</span>
+            </div>
+            <h1 class="text-2xl font-black text-slate-900 tracking-tight">
+              Student Sign In
+            </h1>
+            <p class="text-xs text-slate-600 mt-1">
+              Enter your student credentials to access your personalized success score &amp; analytics.
+            </p>
+          </div>
+
+          <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-rose-200 bg-white/90 shadow-2xl shadow-rose-500/10">
+            ${loginErrorMessage ? `
+              <div class="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-300 text-rose-800 text-xs flex items-center justify-between">
+                <span>[Alert] ${loginErrorMessage}</span>
+                <button onclick="clearError()" class="text-rose-600 hover:text-rose-900 font-bold ml-2 text-sm">&times;</button>
+              </div>
+            ` : ''}
+
+            <form onsubmit="handleStudentLogin(event)" class="space-y-4 text-xs">
+              <div>
+                <label class="text-slate-700 font-bold block mb-1.5">University Seat Number (USN)</label>
+                <input
+                  id="student-usn"
+                  type="text"
+                  required
+                  placeholder="e.g. 1RV21IT045"
+                  class="w-full bg-slate-50 border border-slate-300 p-3 rounded-xl text-slate-900 text-xs font-mono uppercase focus:outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-200"
+                />
+              </div>
+
+              <div>
+                <label class="text-slate-700 font-bold block mb-1.5">Password</label>
+                <input
+                  id="student-pwd"
+                  type="password"
+                  required
+                  placeholder="Enter your student password"
+                  class="w-full bg-slate-50 border border-slate-300 p-3 rounded-xl text-slate-900 text-xs focus:outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-200"
+                />
+              </div>
+
+              <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-red-600 via-rose-500 to-pink-600 hover:from-red-500 hover:to-pink-500 text-white rounded-xl font-black text-xs transition shadow-lg shadow-rose-500/30 transform hover:scale-[1.01]">
+                Sign In to Campus Pulse Dashboard →
+              </button>
+
+              <div class="flex items-center justify-between pt-2 text-[11px]">
+                <button type="button" onclick="navigateTo('STUDENT_REGISTER')" class="text-rose-600 hover:text-rose-700 font-bold">
+                  New Student? Register Here
+                </button>
+                <span class="text-slate-400">•</span>
+                <button type="button" onclick="navigateTo('ADMIN_LOGIN')" class="text-slate-600 hover:text-rose-600 font-semibold">
+                  Faculty Administration Portal →
+                </button>
+              </div>
+
+              <div class="pt-4 border-t border-slate-200 text-[11px] text-slate-600">
+                <span class="font-bold text-slate-700 block mb-2"> Quick Demo Archetypes Autofill:</span>
+                <div class="grid grid-cols-2 gap-2">
+                  <button type="button" onclick="autofillStudent('1RV21IT045')" class="p-2 text-left rounded-xl bg-white hover:bg-pink-50/50 border border-pink-200 text-pink-700 font-mono text-[10px] shadow-2xs">
+                    <strong>Priya Nair</strong> (Score 95)<br /><span class="text-slate-500 font-sans">Top Performer (Approved)</span>
+                  </button>
+                  <button type="button" onclick="autofillStudent('1RV22CS102')" class="p-2 text-left rounded-xl bg-white hover:bg-rose-50/50 border border-rose-200 text-rose-700 font-mono text-[10px] shadow-2xs">
+                    <strong>Rahul Verma</strong> (Score 73)<br /><span class="text-slate-500 font-sans">All-Rounder (Approved)</span>
+                  </button>
+                  <button type="button" onclick="autofillStudent('1RV22EC088')" class="p-2 text-left rounded-xl bg-white hover:bg-rose-50/50 border border-rose-300 text-rose-800 font-mono text-[10px] shadow-2xs">
+                    <strong>Sneha Rao</strong> (Score 44)<br /><span class="text-slate-500 font-sans">Academic Risk (58% Att)</span>
+                  </button>
+                  <button type="button" onclick="autofillStudent('1RV21CS034')" class="p-2 text-left rounded-xl bg-white hover:bg-amber-50/50 border border-amber-200 text-amber-800 font-mono text-[10px] shadow-2xs">
+                    <strong>Arjun Mehta</strong> (Score 62)<br /><span class="text-slate-500 font-sans">Placement Risk (42 Code)</span>
+                  </button>
+                  <button type="button" onclick="autofillStudent('1RV21AI019')" class="p-2 text-left rounded-xl bg-white hover:bg-indigo-50/50 border border-indigo-200 text-indigo-700 font-mono text-[10px] shadow-2xs">
+                    <strong>Karan Patel</strong> (Score 78)<br /><span class="text-slate-500 font-sans">Coding Wizard (96 Code)</span>
+                  </button>
+                  <button type="button" onclick="autofillStudent('1RV22IS076')" class="p-2 text-left rounded-xl bg-white hover:bg-pink-50/50 border border-pink-200 text-pink-700 font-mono text-[10px] shadow-2xs">
+                    <strong>Rohan Joshi</strong> (Score 59)<br /><span class="text-slate-500 font-sans">LMS Deficit (56 Code)</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 8. VIEW: ADMIN LOGIN (SEPARATE INTERFACE)
+    // ==========================================
+    function renderSeparateAdminLoginPage() {
+      return `
+        <div class="max-w-md mx-auto py-8 sm:py-12 animate-fadeIn">
+          <div class="text-center mb-8">
+            <div class="h-16 w-16 rounded-2xl bg-gradient-to-tr from-red-600 via-rose-500 to-pink-500 p-0.5 mx-auto mb-3 shadow-xl shadow-rose-500/25 flex items-center justify-center">
+              <div class="h-full w-full bg-white rounded-[14px] flex items-center justify-center text-3xl">
+                <svg class="w-8 h-8 text-rose-600 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+            </div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-md bg-rose-100 border border-rose-300 text-rose-800 text-[10px] font-black uppercase tracking-wider mb-2">
+              <span>Restricted Access</span> • <span>Faculty &amp; Administration Only</span>
+            </div>
+            <h1 class="text-2xl font-black text-slate-900 tracking-tight">
+              Faculty &amp; Dean Console
+            </h1>
+            <p class="text-xs text-slate-600 mt-1">
+              Office of Academic Affairs • CAMPUS PULSE AI Gatekeeper
+            </p>
+          </div>
+
+          <div class="admin-panel p-6 sm:p-8 rounded-3xl shadow-2xl relative overflow-hidden bg-white/95">
+            <div class="h-1.5 w-full bg-gradient-to-r from-red-600 via-rose-500 to-pink-600 absolute top-0 left-0"></div>
+
+            ${loginErrorMessage ? `
+              <div class="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-300 text-rose-800 text-xs flex items-center justify-between">
+                <span>[Alert] ${loginErrorMessage}</span>
+                <button onclick="clearError()" class="text-rose-600 hover:text-rose-900 font-bold ml-2 text-sm">&times;</button>
+              </div>
+            ` : ''}
+
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3.5 mb-5 shadow-xs">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-red-600 to-pink-600 flex items-center justify-center font-bold text-white text-base shadow-sm">
+                DS
+              </div>
+              <div>
+                <h4 class="font-extrabold text-slate-900 text-sm">Dr. Sharma</h4>
+                <p class="text-[11px] text-rose-600 font-semibold">Dean of Academic Affairs &amp; Institutional Auditor</p>
+                <p class="text-[10px] text-slate-500 font-mono">RV College of Engineering</p>
+              </div>
+            </div>
+
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4 text-xs">
+              <div>
+                <label class="text-slate-700 font-bold block mb-1.5">Institutional Email Address</label>
+                <input
+                  id="admin-email"
+                  type="email"
+                  required
+                  value="dean.academics@rvce.edu.in"
+                  class="w-full bg-slate-50 border border-slate-300 p-3 rounded-xl text-slate-900 text-xs font-mono focus:outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-200"
+                />
+              </div>
+
+              <div>
+                <label class="text-slate-700 font-bold block mb-1.5">Administrative Security Password</label>
+                <input
+                  id="admin-pwd"
+                  type="password"
+                  required
+                  value="admin123"
+                  class="w-full bg-slate-50 border border-slate-300 p-3 rounded-xl text-slate-900 text-xs focus:outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-200"
+                />
+              </div>
+
+              <div class="flex items-center justify-between text-[11px] text-slate-600 py-1">
+                <span class="flex items-center gap-1 text-emerald-700 font-bold">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 2FA Clearance Active
+                </span>
+                <span class="font-mono text-slate-500">Clearance: Tier-1</span>
+              </div>
+
+              <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-red-600 via-rose-500 to-pink-600 hover:from-red-500 hover:to-pink-500 text-white rounded-xl font-black text-xs transition shadow-lg shadow-rose-500/30 flex items-center justify-center gap-2">
+                <span>Authorize &amp; Enter Faculty Console →</span>
+              </button>
+
+              <div class="text-center pt-3 border-t border-slate-200">
+                <button type="button" onclick="navigateTo('STUDENT_LOGIN')" class="text-xs text-slate-600 hover:text-rose-600 font-semibold transition">
+                  ← Not an administrator? Return to Student Portal
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 9. VIEW: STUDENT REGISTRATION
+    // ==========================================
+    function renderStudentRegistrationPage() {
+      return `
+        <div class="max-w-md mx-auto py-8 animate-fadeIn">
+          <div class="text-center mb-6">
+            <div class="h-14 w-14 rounded-2xl bg-gradient-to-tr from-red-600 via-rose-500 to-pink-500 p-0.5 mx-auto mb-3 shadow-md flex items-center justify-center">
+              <div class="h-full w-full bg-white rounded-[14px] flex items-center justify-center text-2xl">
+                
+              </div>
+            </div>
+            <h1 class="text-2xl font-black text-slate-900 tracking-tight">New Student Registration</h1>
+            <p class="text-xs text-slate-600 mt-1">Submit your academic details to request Campus Pulse onboarding access.</p>
+          </div>
+
+          <div class="glass-panel p-6 sm:p-8 rounded-3xl border border-rose-200 bg-white/90 shadow-2xl shadow-rose-500/10">
+            <div class="p-3 rounded-xl bg-rose-50 border border-rose-300 text-rose-800 text-[11px] mb-4">
+              <strong>[Gated Security Protocol]</strong> Upon registration, your account status is set to <strong>&quot;PENDING&quot;</strong>. Dean Dr. Sharma must approve your account in the Faculty Console before access is granted.
+            </div>
+
+            <form onsubmit="handleRegistration(event)" class="space-y-3.5 text-xs">
+              <div>
+                <label class="text-slate-700 font-bold block mb-1">Student Full Name</label>
+                <input id="reg-name" type="text" required placeholder="e.g. Vikram Singhania" class="w-full bg-slate-50 border border-slate-300 p-2.5 rounded-xl text-slate-900 text-xs focus:outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-200" />
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="text-slate-700 font-bold block mb-1">USN / Student ID</label>
+                  <input id="reg-usn" type="text" required placeholder="e.g. 1RV22CS188" class="w-full bg-slate-50 border border-slate-300 p-2.5 rounded-xl text-slate-900 text-xs font-mono uppercase focus:outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-200" />
+                </div>
+                <div>
+                  <label class="text-slate-700 font-bold block mb-1">Semester</label>
+                  <select id="reg-sem" class="w-full bg-slate-50 border border-slate-300 p-2.5 rounded-xl text-slate-900 text-xs">
+                    <option value="4">Semester 4</option>
+                    <option value="6" selected>Semester 6</option>
+                    <option value="8">Semester 8</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label class="text-slate-700 font-bold block mb-1">Department</label>
+                <select id="reg-dept" class="w-full bg-slate-50 border border-slate-300 p-2.5 rounded-xl text-slate-900 text-xs">
+                  <option value="Computer Science & Engineering">Computer Science &amp; Engineering</option>
+                  <option value="Information Science & Engineering">Information Science &amp; Engineering</option>
+                  <option value="AI & Machine Learning">AI &amp; Machine Learning</option>
+                  <option value="Electronics & Communication">Electronics &amp; Communication</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-slate-700 font-bold block mb-1">Create Password</label>
+                <input id="reg-pwd" type="password" required placeholder="••••••••" class="w-full bg-slate-50 border border-slate-300 p-2.5 rounded-xl text-slate-900 text-xs focus:outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-200" />
+              </div>
+
+              <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-red-600 via-rose-500 to-pink-600 hover:from-red-500 hover:to-pink-500 text-white rounded-xl font-black text-xs transition shadow-lg shadow-rose-500/30">
+                Register &amp; Submit Gated Access Request →
+              </button>
+
+              <div class="text-center pt-2">
+                <button type="button" onclick="navigateTo('STUDENT_LOGIN')" class="text-slate-600 hover:text-rose-600 font-semibold text-xs">
+                  ← Already registered? Return to Student Sign In
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 10. VIEW: ADMIN DASHBOARD
+    // ==========================================
+    function renderAdminDashboard() {
+      const pendingStudents = students.filter(s => s.approvalStatus === 'PENDING');
+      const approvedStudents = students.filter(s => s.approvalStatus === 'APPROVED');
+      const meanScore = approvedStudents.length > 0
+        ? (approvedStudents.reduce((acc, s) => acc + s.successScore.overall, 0) / approvedStudents.length).toFixed(1)
+        : '0.0';
+      const highAcadRiskCount = approvedStudents.filter(s => s.risk.academicRisk === 'HIGH').length;
+      const placementRiskCount = approvedStudents.filter(s => s.risk.placementRisk === 'HIGH').length;
+      const topPerformersCount = approvedStudents.filter(s => s.successScore.overall >= 90).length;
+
+      const filtered = students.filter(s => {
+        if (searchQuery.trim()) {
+          const q = searchQuery.toLowerCase();
+          return s.name.toLowerCase().includes(q) || s.usn.toLowerCase().includes(q) || s.academic.department.toLowerCase().includes(q);
+        }
+        return true;
+      });
+
+      return `
+        <div class="space-y-8 animate-fadeIn">
+          <!-- Gated Onboarding Banner -->
+          <div class="glass-panel rounded-3xl border border-rose-300 p-6 bg-gradient-to-b from-rose-50/60 to-white/95 shadow-xl">
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="p-2 bg-rose-100 rounded-xl text-rose-600 font-bold"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg></span>
+                  <h2 class="text-lg font-black text-slate-900">
+                    Gated Onboarding: Student Access Requests
+                  </h2>
+                  <span class="bg-gradient-to-r from-red-600 to-pink-600 text-white px-3 py-0.5 rounded-md text-xs font-bold shadow-xs">
+                    ${pendingStudents.length} Awaiting Authorization
+                  </span>
+                </div>
+                <p class="text-xs text-slate-600 mt-1">
+                  New student accounts remain locked until authorized by Dean Dr. Sharma.
+                </p>
+              </div>
+            </div>
+
+            ${pendingStudents.length === 0 ? `
+              <div class="text-center py-6 bg-white/80 rounded-2xl border border-slate-200 text-xs text-slate-600 font-semibold">
+                [Verified] All student access requests have been approved! Zero pending verifications.
+              </div>
+            ` : `
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                ${pendingStudents.map(stu => `
+                  <div class="bg-white border border-slate-200 rounded-2xl p-4 flex flex-col justify-between shadow-sm hover:shadow-md transition">
+                    <div class="flex items-center justify-between mb-3">
+                      <div class="flex items-center gap-3">
+                        <img src="${stu.avatarUrl}" class="w-11 h-11 rounded-xl object-cover ring-2 ring-rose-400" />
+                        <div>
+                          <h4 class="font-black text-slate-900 text-sm">${stu.name}</h4>
+                          <p class="text-xs text-slate-500">${stu.academic.department} • Sem ${stu.academic.semester}</p>
+                        </div>
+                      </div>
+                      <span class="text-[10px] font-mono bg-rose-50 px-2 py-1 rounded text-rose-700 border border-rose-200 font-bold">
+                        ${stu.usn}
+                      </span>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2 bg-slate-50 p-2.5 rounded-xl text-center text-xs mb-3 border border-slate-200">
+                      <div><span class="text-slate-500 block text-[10px] font-bold">CGPA</span><strong class="text-slate-800">${stu.academic.cgpa}</strong></div>
+                      <div><span class="text-slate-500 block text-[10px] font-bold">Attendance</span><strong class="text-emerald-700">${stu.attendance.overallPercentage}%</strong></div>
+                      <div><span class="text-slate-500 block text-[10px] font-bold">Pre-Score</span><strong class="text-rose-700">${stu.successScore.overall}/100</strong></div>
+                    </div>
+
+                    <div class="flex items-center gap-2 pt-2 border-t border-slate-200">
+                      <button onclick="approveStudent('${stu.id}')" class="flex-1 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold transition shadow-xs">
+                         Approve Access
+                      </button>
+                      <button onclick="rejectStudent('${stu.id}')" class="py-2 px-3 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-xl text-xs font-bold transition">
+                        Reject
+                      </button>
+                      <button onclick="openMicroModal('${stu.id}')" class="py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition border border-slate-300">
+                        Inspect 360°
+                      </button>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            `}
+          </div>
+
+          <!-- Macro Analytics Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="glass-panel p-5 rounded-2xl border border-slate-200 shadow-sm bg-white/95">
+              <span class="text-xs font-black text-slate-500 uppercase tracking-wider block">Mean Success Score</span>
+              <div class="text-3xl font-black bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent mt-1">${meanScore} <span class="text-xs text-slate-500 font-normal">/ 100</span></div>
+              <span class="text-[11px] text-emerald-700 font-bold mt-2 flex items-center gap-1">
+                <span>↑</span> ↑ +4.2 points vs AY 2025
+              </span>
+            </div>
+            <div class="glass-panel p-5 rounded-2xl border border-slate-200 shadow-sm bg-white/95">
+              <span class="text-xs font-black text-rose-600 uppercase tracking-wider block">High Academic Risk</span>
+              <div class="text-3xl font-black text-rose-600 mt-1">${highAcadRiskCount} Student${highAcadRiskCount === 1 ? '' : 's'}</div>
+              <span class="text-[11px] text-slate-600 mt-1 block">Sneha Rao (58% Attendance, 2 Backlogs)</span>
+              <span class="text-[10px] text-emerald-700 font-bold mt-1 block">↓ -1 student since mid-term</span>
+            </div>
+            <div class="glass-panel p-5 rounded-2xl border border-slate-200 shadow-sm bg-white/95">
+              <span class="text-xs font-black text-amber-600 uppercase tracking-wider block">Placement Risk</span>
+              <div class="text-3xl font-black text-amber-600 mt-1">${placementRiskCount} Students</div>
+              <span class="text-[11px] text-slate-600 mt-1 block">Arjun Mehta, Rohan Joshi (Sub-60 Coding)</span>
+              <span class="text-[10px] text-rose-600 font-bold mt-1 block">↑ +2 flagged in mock cycle</span>
+            </div>
+            <div class="glass-panel p-5 rounded-2xl border border-slate-200 shadow-sm bg-white/95">
+              <span class="text-xs font-black text-emerald-600 uppercase tracking-wider block">Top Performers</span>
+              <div class="text-3xl font-black text-emerald-600 mt-1">${topPerformersCount} Student${topPerformersCount === 1 ? '' : 's'}</div>
+              <span class="text-[11px] text-slate-600 mt-1 block">Priya Nair (Score 95/100)</span>
+              <span class="text-[10px] text-emerald-700 font-bold mt-1 block">↑ +1 student this semester</span>
+            </div>
+          </div>
+
+          <!-- Student Roster Table -->
+          <div class="glass-panel rounded-3xl border border-slate-200 overflow-hidden shadow-xl bg-white/95">
+            <div class="p-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3 bg-slate-50/70">
+              <div class="flex items-center gap-2">
+                <span class="h-2 w-2 rounded-full bg-rose-600 animate-pulse"></span>
+                <h3 class="font-black text-slate-900 text-sm">Campus Pulse Student Roster &amp; Success Engine:</h3>
+              </div>
+              <input type="text" placeholder="Search name, USN, dept..." oninput="handleSearch(this.value)" value="${searchQuery}" class="bg-white border border-slate-300 px-3.5 py-1.5 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-200" />
+            </div>
+
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-100 text-slate-600 font-bold uppercase tracking-wider border-b border-slate-200">
+                <tr>
+                  <th class="p-3.5">Student</th>
+                  <th class="p-3.5">Department</th>
+                  <th class="p-3.5">Success Score</th>
+                  <th class="p-3.5 text-center">Academic Risk</th>
+                  <th class="p-3.5 text-center">Placement Risk</th>
+                  <th class="p-3.5">Cohort</th>
+                  <th class="p-3.5 text-center">Status</th>
+                  <th class="p-3.5 text-right">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-100">
+                ${filtered.map(stu => `
+                  <tr onclick="openMicroModal('${stu.id}')" class="hover:bg-rose-50/40 cursor-pointer transition">
+                    <td class="p-3.5 flex items-center gap-3">
+                      <img src="${stu.avatarUrl}" class="w-9 h-9 rounded-xl object-cover ring-1 ring-slate-300" />
+                      <div>
+                        <div class="font-bold text-slate-900">${stu.name}</div>
+                        <div class="text-[10px] text-slate-500 font-mono">${stu.usn}</div>
+                      </div>
+                    </td>
+                    <td class="p-3.5 text-slate-700">${stu.academic.department} (Sem ${stu.academic.semester})</td>
+                    <td class="p-3.5">
+                      <span class="font-black text-sm font-mono text-rose-700">${stu.successScore.overall}/100</span>
+                    </td>
+                    <td class="p-3.5 text-center">
+                      <span class="px-2 py-0.5 rounded-md font-bold text-[10px] ${
+                        stu.risk.academicRisk === 'HIGH' ? 'bg-rose-100 text-rose-800 border border-rose-300' : 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                      }">
+                        ${stu.risk.academicRisk}
+                      </span>
+                    </td>
+                    <td class="p-3.5 text-center">
+                      <span class="px-2 py-0.5 rounded-md font-bold text-[10px] ${
+                        stu.risk.placementRisk === 'HIGH' ? 'bg-rose-100 text-rose-800 border border-rose-300' : 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                      }">
+                        ${stu.risk.placementRisk}
+                      </span>
+                    </td>
+                    <td class="p-3.5">
+                      <span class="px-2 py-0.5 rounded border text-[10px] font-semibold ${stu.cohort.badgeColor}">
+                        ${stu.cohort.label}
+                      </span>
+                    </td>
+                    <td class="p-3.5 text-center">
+                      <span class="font-bold text-[10px] ${stu.approvalStatus === 'APPROVED' ? 'text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md' : 'text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md'}">
+                        ${stu.approvalStatus}
+                      </span>
+                    </td>
+                    <td class="p-3.5 text-right">
+                      <button onclick="event.stopPropagation(); openMicroModal('${stu.id}')" class="px-3 py-1.5 bg-gradient-to-r from-red-600 via-rose-500 to-pink-600 hover:from-red-500 hover:to-pink-500 text-white rounded-xl text-xs font-bold transition shadow-xs">
+                        Inspect 360°
+                      </button>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 11. VIEW: STUDENT DASHBOARD
+    // ==========================================
+    function renderStudentDashboard() {
+      const student = students.find(s => s.id === activeStudentId) || students[0];
+
+      if (student.approvalStatus === 'PENDING') {
+        return `
+          <div class="max-w-2xl mx-auto py-12 text-center glass-panel p-8 rounded-3xl border border-rose-300 bg-white/95 animate-fadeIn shadow-2xl">
+            <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-3xl flex items-center justify-center text-3xl mx-auto mb-4 animate-pulse">
+              
+            </div>
+            <h2 class="text-2xl font-black text-slate-900">Account Verification in Progress</h2>
+            <p class="text-xs text-slate-600 mt-2 max-w-md mx-auto">
+              Welcome, <strong class="text-rose-700">${student.name}</strong> (${student.usn}). Your registration has been received and is waiting for authorization from Dean Dr. Sharma.
+            </p>
+
+            <div class="grid grid-cols-3 gap-2 my-8 text-left text-xs max-w-lg mx-auto">
+              <div class="bg-white p-3 rounded-xl border border-emerald-300 text-emerald-800 shadow-xs">
+                <strong> Step 1</strong><br /><span class="text-[10px] text-slate-500">Records Synced</span>
+              </div>
+              <div class="bg-rose-50 p-3 rounded-xl border border-rose-300 text-rose-800 shadow-xs">
+                <strong>⏳ Step 2</strong><br /><span class="text-[10px] text-slate-600">Dean Sign-Off</span>
+              </div>
+              <div class="bg-slate-100 p-3 rounded-xl border border-slate-300 text-slate-400">
+                <strong> Step 3</strong><br /><span class="text-[10px] text-slate-400">Analytics Unlocked</span>
+              </div>
+            </div>
+
+            <div class="bg-rose-50 border border-rose-200 p-4 rounded-2xl text-xs text-left max-w-lg mx-auto shadow-xs">
+              <p class="text-rose-800 font-bold mb-1"> Live Hackathon Demo Tip:</p>
+              <p class="text-slate-600 text-[11px]">
+                Sign out and open the <strong>Faculty Admin Portal</strong> to approve ${student.name}&apos;s account, or 1-click fast unlock right here:
+              </p>
+              <button onclick="approveStudent('${student.id}')" class="mt-3 px-4 py-2 bg-gradient-to-r from-red-600 via-rose-500 to-pink-600 hover:from-red-500 hover:to-pink-500 text-white rounded-xl font-black text-xs transition shadow-md">
+                1-Click Fast Unlock Account
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="space-y-6 animate-fadeIn">
+          <!-- Demo Archetype Quick Switcher -->
+          <div class="glass-panel p-3 rounded-2xl border border-slate-200 bg-white/90 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+            <span class="text-xs font-black text-slate-600 flex items-center gap-1.5 flex-shrink-0">
+              <span class="text-rose-600"></span> Live Archetype Switcher:
+            </span>
+            <div class="flex items-center gap-1.5 flex-wrap">
+              ${students.map(s => `
+                <button onclick="switchStudent('${s.id}')" class="px-2.5 py-1 rounded-xl text-xs font-bold transition ${activeStudentId === s.id ? 'bg-gradient-to-r from-red-600 to-pink-600 text-white shadow-sm' : 'bg-slate-100 hover:bg-rose-50 text-slate-700 border border-slate-200'}">
+                  ${s.name.split(' ')[0]} <span class="font-mono text-[10px] opacity-80">(${s.successScore.overall})</span>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+
+          <!-- Student Hero Banner -->
+          <div class="glass-panel p-6 rounded-3xl border border-rose-200 bg-gradient-to-r from-white via-rose-50/40 to-white flex flex-wrap items-center justify-between gap-4 shadow-md">
+            <div class="flex items-center gap-4">
+              <img src="${student.avatarUrl}" class="w-16 h-16 rounded-2xl object-cover ring-2 ring-rose-500 shadow-md" />
+              <div>
+                <h1 class="text-2xl font-black text-slate-900 flex items-center gap-2">
+                  ${student.name}
+                  <span class="text-xs bg-emerald-100 text-emerald-800 border border-emerald-300 px-2.5 py-0.5 rounded-md font-bold">
+                     Verified Account
+                  </span>
+                </h1>
+                <p class="text-xs text-slate-500 font-semibold">${student.academic.department} • Sem ${student.academic.semester}</p>
+                <div class="flex flex-wrap items-center gap-2 mt-2">
+                  <span class="text-[10px] px-2.5 py-0.5 rounded-md border font-bold ${student.cohort.badgeColor}">
+                    ${student.cohort.label}
+                  </span>
+                  <span class="text-[11px] px-3 py-0.5 rounded-md bg-rose-50 text-rose-700 border border-rose-200 font-bold">
+                     Sports: ${student.sports.primarySport} (${student.sports.weeklyHours}h/wk)
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 bg-white p-3.5 rounded-2xl border border-slate-200 shadow-sm">
+              <div class="text-right">
+                <span class="text-[10px] uppercase font-black text-rose-600 block">Campus Pulse Score</span>
+                <span class="text-xs text-slate-500">Proprietary AI Composite</span>
+              </div>
+              <div class="w-16 h-16 bg-gradient-to-br from-red-600 via-rose-500 to-pink-600 rounded-2xl flex items-center justify-center text-2xl font-black text-white font-mono shadow-lg shadow-rose-500/30">
+                ${student.successScore.overall}
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Core Pillars KPI Cards with Historical Delta Trends -->
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+            <div class="glass-panel p-4 rounded-2xl border border-slate-200 shadow-sm bg-white/95">
+              <span class="text-xs text-slate-500 font-bold block uppercase">Cumulative GPA</span>
+              <div class="text-2xl font-black text-slate-900 mt-1 font-mono">${student.academic.cgpa} <span class="text-xs text-slate-400 font-normal">/ 10.0</span></div>
+              <div class="mt-1"><span class="text-[11px] font-bold ${student.academic.cgpaTrend === 'DOWN' ? 'text-rose-600' : 'text-emerald-700'}">${student.academic.cgpaDelta || '↑ Stable'}</span></div>
+              <span class="text-[11px] text-slate-500 mt-1 block">Backlogs: <strong class="${student.academic.activeBacklogs > 0 ? 'text-rose-600' : 'text-slate-800'}">${student.academic.activeBacklogs} active</strong></span>
+            </div>
+            <div class="glass-panel p-4 rounded-2xl border border-slate-200 shadow-sm bg-white/95">
+              <span class="text-xs text-slate-500 font-bold block uppercase">Attendance Health</span>
+              <div class="text-2xl font-black ${student.attendance.overallPercentage >= 75 ? 'text-emerald-700' : 'text-rose-700'} mt-1 font-mono">${student.attendance.overallPercentage}%</div>
+              <div class="mt-1"><span class="text-[11px] font-bold ${student.attendance.attendanceTrend === 'DOWN' ? 'text-rose-600' : 'text-emerald-700'}">${student.attendance.attendanceDelta || '↑ Baseline'}</span></div>
+              <span class="text-[11px] ${student.attendance.overallPercentage >= 75 ? 'text-emerald-700' : 'text-rose-600'} mt-1 block font-semibold">${student.attendance.overallPercentage >= 75 ? 'Safe margin above 75%' : '[Alert] Below mandatory 75%'}</span>
+            </div>
+            <div class="glass-panel p-4 rounded-2xl border border-slate-200 shadow-sm bg-white/95">
+              <span class="text-xs text-slate-500 font-bold block uppercase">Placement Benchmark</span>
+              <div class="text-2xl font-black text-rose-700 mt-1 font-mono">${student.placement.codingScore}/100</div>
+              <div class="mt-1"><span class="text-[11px] font-bold ${student.placement.codingTrend === 'DOWN' ? 'text-rose-600' : 'text-emerald-700'}">${student.placement.codingDelta || '↑ +5 pts'}</span></div>
+              <span class="text-[11px] text-slate-500 mt-1 block">Mock Interview: <strong>${student.placement.mockInterviewRating}/100</strong></span>
+            </div>
+            <div class="glass-panel p-4 rounded-2xl border border-slate-200 shadow-sm bg-white/95">
+              <span class="text-xs text-slate-500 font-bold block uppercase">Athletics &amp; Sports</span>
+              <div class="text-2xl font-black text-pink-700 mt-1 font-mono">${student.sports.weeklyHours}h <span class="text-xs text-slate-400 font-normal">/ wk</span></div>
+              <div class="mt-1"><span class="text-[11px] font-bold text-pink-700 font-semibold">${student.sports.sportsDelta || '↑ Active'}</span></div>
+              <span class="text-[11px] text-pink-700 mt-1 block font-semibold">${student.sports.fitnessLevel}</span>
+            </div>
+          </div>
+
+          <!-- Pillars 6 & 7: Skills Matrix & Faculty Feedback & Sentiment Widgets -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Pillar 6: Unified Skills Matrix -->
+            <div class="glass-panel p-5 rounded-2xl border border-slate-200 shadow-sm bg-white/95 space-y-4">
+              <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                  <span class="p-1.5 bg-rose-50 rounded-xl text-rose-600 font-bold text-base"><svg class="w-4 h-4 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></span>
+                  <div>
+                    <h3 class="font-black text-slate-900 text-sm">Pillar 6: Skills Matrix Widget</h3>
+                    <p class="text-[11px] text-slate-500">Continuous Technical &amp; Soft Competency Audit</p>
+                  </div>
+                </div>
+                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-rose-50 text-rose-700 border border-rose-200">
+                  Pillar 6 of 7
+                </span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                  <span class="text-[10px] uppercase font-bold text-slate-500 block">Technical Skill Index</span>
+                  <div class="flex items-baseline gap-1 mt-1">
+                    <span class="text-2xl font-black text-rose-700 font-mono">${student.skills.technicalIndex}</span>
+                    <span class="text-xs text-slate-400 font-medium">/ 100</span>
+                  </div>
+                  <div class="w-full bg-slate-200 rounded-sm h-1.5 mt-2 overflow-hidden">
+                    <div class="bg-gradient-to-r from-red-600 to-pink-600 h-1.5 rounded-sm" style="width: ${student.skills.technicalIndex}%"></div>
+                  </div>
+                </div>
+
+                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                  <span class="text-[10px] uppercase font-bold text-slate-500 block">Soft Skills Rating</span>
+                  <div class="flex items-baseline gap-1 mt-1">
+                    <span class="text-2xl font-black text-pink-700 font-mono">${student.skills.softSkillsRating}</span>
+                    <span class="text-xs text-slate-400 font-medium">/ 5.0</span>
+                  </div>
+                  <div class="w-full bg-slate-200 rounded-sm h-1.5 mt-2 overflow-hidden">
+                    <div class="bg-gradient-to-r from-rose-500 to-pink-500 h-1.5 rounded-sm" style="width: ${(student.skills.softSkillsRating / 5.0) * 100}%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <span class="text-[11px] font-bold text-slate-600 block mb-2">Top Assessed Competencies:</span>
+                <div class="flex flex-wrap gap-1.5">
+                  ${student.skills.competencies.map(c => `
+                    <span class="px-2.5 py-1 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-[11px] font-bold shadow-2xs">
+                      ${c}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- Pillar 7: Faculty Feedback & Sentiment Widget -->
+            <div class="glass-panel p-5 rounded-2xl border border-slate-200 shadow-sm bg-white/95 space-y-4">
+              <div class="flex items-center justify-between pb-2 border-b border-slate-100">
+                <div class="flex items-center gap-2">
+                  <span class="p-1.5 bg-rose-50 rounded-xl text-rose-600 font-bold text-base"><svg class="w-4 h-4 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg></span>
+                  <div>
+                    <h3 class="font-black text-slate-900 text-sm">Pillar 7: Faculty Feedback &amp; Sentiment</h3>
+                    <p class="text-[11px] text-slate-500">Proctorial Board Observation &amp; Institutional Tone</p>
+                  </div>
+                </div>
+                <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-pink-50 text-pink-700 border border-pink-200">
+                  Pillar 7 of 7
+                </span>
+              </div>
+
+              <div class="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div>
+                  <span class="text-[10px] uppercase font-bold text-slate-500 block">Overall Sentiment Badge</span>
+                  <span class="text-xs font-bold text-slate-800">${student.facultyFeedback.advisorName}</span>
+                </div>
+                <span class="px-3 py-1 rounded-md text-xs font-black border flex items-center gap-1.5 ${
+                  student.facultyFeedback.sentiment === 'POSITIVE'
+                    ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                    : student.facultyFeedback.sentiment === 'NEUTRAL'
+                    ? 'bg-amber-100 text-amber-800 border-amber-300'
+                    : 'bg-rose-100 text-rose-800 border-rose-300'
+                }">
+                  <span class="w-2 h-2 rounded-full ${
+                    student.facultyFeedback.sentiment === 'POSITIVE' ? 'bg-emerald-500 animate-pulse' : student.facultyFeedback.sentiment === 'NEUTRAL' ? 'bg-amber-500' : 'bg-rose-500 animate-ping'
+                  }"></span>
+                  ${student.facultyFeedback.sentiment === 'POSITIVE' ? 'Positive' : student.facultyFeedback.sentiment === 'NEUTRAL' ? 'Neutral' : 'Needs Attention'}
+                </span>
+              </div>
+
+              <div class="bg-rose-50/50 p-3.5 rounded-xl border border-rose-200 text-xs">
+                <span class="text-[10px] uppercase font-black text-rose-700 block mb-1">Recent Faculty Note:</span>
+                <p class="text-slate-800 italic leading-relaxed">
+                  &ldquo;${student.facultyFeedback.recentNote}&rdquo;
+                </p>
+                <div class="mt-2 pt-2 border-t border-rose-200/60 flex items-center justify-between text-[10px] text-slate-500 font-semibold">
+                  <span>Audited by Proctorial Board</span>
+                  <span class="font-mono">${student.facultyFeedback.date}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prescriptive Action Plan & Explainable AI -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="glass-panel p-5 rounded-2xl border border-slate-200 space-y-3 shadow-sm bg-white/90">
+              <div class="flex items-center justify-between">
+                <h3 class="font-black text-slate-900 text-sm flex items-center gap-2">
+                  <span></span> Prescriptive Action Plan
+                </h3>
+                <button onclick="openChatAndAsk('timetable')" class="text-rose-600 hover:text-rose-700 text-xs font-bold">
+                  Ask Aditi for Schedule →
+                </button>
+              </div>
+              <div class="space-y-2">
+                ${student.actions.map(act => `
+                  <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex justify-between items-center text-xs shadow-2xs">
+                    <div>
+                      <span class="font-bold text-slate-800 block">${act.title}</span>
+                      <span class="text-[11px] text-slate-500">${act.desc}</span>
+                    </div>
+                    <span class="bg-rose-100 text-rose-800 border border-rose-300 px-2 py-1 rounded font-bold whitespace-nowrap">
+                      +${act.impact} pts
+                    </span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+
+            <div class="glass-panel p-5 rounded-2xl border border-slate-200 space-y-3 shadow-sm bg-white/90">
+              <h3 class="font-black text-slate-900 text-sm flex items-center gap-2">
+                <span><svg class="w-4 h-4 text-rose-600 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></span> Explainable AI: &quot;Why This Score?&quot;
+              </h3>
+              <div class="space-y-2 text-xs">
+                ${student.xaiDrivers.map(d => `
+                  <div class="p-3 rounded-xl border flex justify-between items-center shadow-2xs ${
+                    d.type === 'POSITIVE' ? 'bg-emerald-50 border-emerald-300 text-emerald-900' : 'bg-rose-50 border-rose-300 text-rose-900'
+                  }">
+                    <div>
+                      <strong class="text-slate-900 block">${d.feature}</strong>
+                      <span class="text-[11px] text-slate-600">${d.desc}</span>
+                    </div>
+                    <span class="font-mono font-bold text-sm ${d.type === 'POSITIVE' ? 'text-emerald-700' : 'text-rose-700'}">
+                      ${d.impact > 0 ? `+${d.impact}` : d.impact} pts
+                    </span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==========================================
+    // 12. 360° INSPECT DOSSIER MODAL (TASK 4)
+    // ==========================================
+    function openMicroModal(stuId) {
+      resetActivity();
+      const student = students.find(s => s.id === stuId);
+      if (!student) return;
+      const modalRoot = document.getElementById('modal-root');
+      modalRoot.innerHTML = `
+        <div onclick="closeMicroModal()" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 animate-fadeIn">
+          <div onclick="event.stopPropagation()" class="glass-panel bg-white/98 rounded-3xl border border-rose-300 shadow-2xl max-w-4xl w-full p-6 sm:p-7 max-h-[92vh] overflow-y-auto">
+            
+            <!-- Modal Header -->
+            <div class="flex flex-wrap items-center justify-between pb-5 border-b border-slate-200 gap-4">
+              <div class="flex items-center gap-4">
+                <img src="${student.avatarUrl}" class="w-16 h-16 rounded-2xl object-cover ring-2 ring-rose-500 shadow-md" />
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h3 class="text-2xl font-black text-slate-900">
+                      ${student.name}
+                    </h3>
+                    <span class="text-xs px-2.5 py-0.5 rounded-md font-bold ${student.approvalStatus === 'APPROVED' ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-amber-100 text-amber-800 border border-amber-300'}">
+                      ${student.approvalStatus}
+                    </span>
+                    <span class="text-xs px-2.5 py-0.5 rounded-md font-bold border ${student.cohort.badgeColor}">
+                      ${student.cohort.label}
+                    </span>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-1">
+                    ${student.academic.department} (Sem ${student.academic.semester}) • USN: <strong class="text-rose-600 font-mono">${student.usn}</strong>
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <div class="text-right">
+                  <span class="text-[10px] uppercase font-black text-rose-600 block">Success Score</span>
+                  <span class="text-2xl font-black text-slate-900 font-mono">${student.successScore.overall}<span class="text-xs text-slate-400 font-normal">/100</span></span>
+                </div>
+                <button onclick="closeMicroModal()" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-rose-100 text-slate-600 hover:text-rose-700 flex items-center justify-center font-bold text-base transition">&times;</button>
+              </div>
+            </div>
+
+            <!-- 7-Pillar Breakdown Visual Grid -->
+            <div class="my-5 space-y-3">
+              <div class="flex items-center justify-between">
+                <h4 class="text-xs font-black uppercase text-slate-600 tracking-wider flex items-center gap-1.5">
+                  <span></span> Unified 7-Pillar Student Dossier
+                </h4>
+                <span class="text-[11px] text-rose-600 font-bold">100% Institutional Signal Coverage</span>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 text-xs">
+                <!-- Pillar 1: Academic -->
+                <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200">
+                  <span class="text-[10px] font-bold text-slate-500 uppercase block">1. Academic</span>
+                  <div class="text-lg font-black text-slate-900 font-mono mt-0.5">${student.academic.cgpa}</div>
+                  <div class="text-[10px] font-bold ${student.academic.cgpaTrend === 'DOWN' ? 'text-rose-600' : 'text-emerald-700'}">${student.academic.cgpaDelta || 'Sem 6'}</div>
+                  <div class="text-[10px] text-slate-500 mt-1">${student.academic.activeBacklogs} backlogs</div>
+                </div>
+
+                <!-- Pillar 2: Attendance -->
+                <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200">
+                  <span class="text-[10px] font-bold text-slate-500 uppercase block">2. Attendance</span>
+                  <div class="text-lg font-black ${student.attendance.overallPercentage >= 75 ? 'text-emerald-700' : 'text-rose-700'} font-mono mt-0.5">${student.attendance.overallPercentage}%</div>
+                  <div class="text-[10px] font-bold ${student.attendance.attendanceTrend === 'DOWN' ? 'text-rose-600' : 'text-emerald-700'}">${student.attendance.attendanceDelta || 'Safe'}</div>
+                  <div class="text-[10px] text-slate-500 mt-1">Min 75% rule</div>
+                </div>
+
+                <!-- Pillar 3: LMS -->
+                <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200">
+                  <span class="text-[10px] font-bold text-slate-500 uppercase block">3. LMS Velocity</span>
+                  <div class="text-lg font-black text-pink-700 font-mono mt-0.5">${student.lms.assignmentCompletionRate}%</div>
+                  <div class="text-[10px] font-bold text-pink-600">${student.lms.weeklyLogins} logins/wk</div>
+                  <div class="text-[10px] text-slate-500 mt-1">${student.lms.lmsDelta ? student.lms.lmsDelta.split(' ')[0] + ' vel' : 'Active'}</div>
+                </div>
+
+                <!-- Pillar 4: Placement -->
+                <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200">
+                  <span class="text-[10px] font-bold text-slate-500 uppercase block">4. Placement</span>
+                  <div class="text-lg font-black text-rose-700 font-mono mt-0.5">${student.placement.codingScore}/100</div>
+                  <div class="text-[10px] font-bold ${student.placement.codingTrend === 'DOWN' ? 'text-rose-600' : 'text-emerald-700'}">${student.placement.codingDelta || 'Aptitude ' + student.placement.aptitudeScore}</div>
+                  <div class="text-[10px] text-slate-500 mt-1">Mock: ${student.placement.mockInterviewRating}/100</div>
+                </div>
+
+                <!-- Pillar 5: Sports -->
+                <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200">
+                  <span class="text-[10px] font-bold text-slate-500 uppercase block">5. Athletics</span>
+                  <div class="text-lg font-black text-pink-700 font-mono mt-0.5">${student.sports.weeklyHours}h/wk</div>
+                  <div class="text-[10px] font-bold text-pink-600">${student.sports.sportsDelta || 'Baseline'}</div>
+                  <div class="text-[10px] text-slate-500 mt-1 truncate" title="${student.sports.primarySport}">${student.sports.primarySport}</div>
+                </div>
+
+                <!-- Pillar 6: Skills Matrix -->
+                <div class="p-3 bg-rose-50/60 rounded-2xl border border-rose-200">
+                  <span class="text-[10px] font-bold text-rose-700 uppercase block">6. Skills Matrix</span>
+                  <div class="text-lg font-black text-rose-800 font-mono mt-0.5">${student.skills.technicalIndex}/100</div>
+                  <div class="text-[10px] font-bold text-pink-700">Soft: ${student.skills.softSkillsRating}/5.0</div>
+                  <div class="text-[10px] text-slate-600 mt-1">${student.skills.competencies.length} verified</div>
+                </div>
+
+                <!-- Pillar 7: Sentiment -->
+                <div class="p-3 bg-rose-50/60 rounded-2xl border border-rose-200">
+                  <span class="text-[10px] font-bold text-rose-700 uppercase block">7. Sentiment</span>
+                  <div class="text-xs font-black ${student.facultyFeedback.sentiment === 'POSITIVE' ? 'text-emerald-700' : student.facultyFeedback.sentiment === 'NEUTRAL' ? 'text-amber-700' : 'text-rose-700'} mt-1 truncate">
+                    ${student.facultyFeedback.sentiment}
+                  </div>
+                  <div class="text-[10px] text-slate-600 mt-1 truncate" title="${student.facultyFeedback.advisorName}">${student.facultyFeedback.advisorName.split(' ')[0]}</div>
+                  <div class="text-[10px] text-slate-500 mt-0.5">${student.facultyFeedback.date}</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Explainable AI (XAI) Drivers & Action Plan Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-5">
+              <!-- XAI Drivers -->
+              <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2.5">
+                <h4 class="text-xs font-bold uppercase text-slate-600 tracking-wider flex items-center gap-1.5">
+                  <span><svg class="w-4 h-4 text-rose-600 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></span> Explainable AI (XAI) Weight Drivers
+                </h4>
+                <div class="space-y-2 text-xs">
+                  ${student.xaiDrivers.map(d => `
+                    <div class="p-2.5 rounded-xl border flex justify-between items-center ${d.type === 'POSITIVE' ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-rose-50 border-rose-200 text-rose-900'}">
+                      <div>
+                        <strong class="block text-slate-900">${d.feature}</strong>
+                        <span class="text-[11px] text-slate-600">${d.desc}</span>
+                      </div>
+                      <span class="font-mono font-black text-sm whitespace-nowrap ${d.type === 'POSITIVE' ? 'text-emerald-700' : 'text-rose-700'}">
+                        ${d.impact > 0 ? '+' : ''}${d.impact} pts
+                      </span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              <!-- Prescriptive Interventions -->
+              <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2.5">
+                <h4 class="text-xs font-bold uppercase text-slate-600 tracking-wider flex items-center gap-1.5">
+                  <span></span> Assigned Prescriptive Interventions
+                </h4>
+                <div class="space-y-2 text-xs">
+                  ${student.actions.map(act => `
+                    <div class="bg-white p-2.5 rounded-xl border border-slate-200 flex justify-between items-center shadow-2xs">
+                      <div>
+                        <strong class="text-slate-800 block">${act.title}</strong>
+                        <span class="text-[11px] text-slate-500">${act.desc}</span>
+                      </div>
+                      <span class="bg-rose-100 text-rose-800 border border-rose-300 px-2 py-0.5 rounded font-bold whitespace-nowrap text-xs">
+                        +${act.impact} pts
+                      </span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- Faculty Note Callout in Modal -->
+            <div class="p-3.5 bg-rose-50/70 border border-rose-200 rounded-2xl text-xs mb-4">
+              <strong class="text-rose-800 block mb-1"><svg class="w-4 h-4 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg> Faculty Proctor Assessment:</strong>
+              <p class="text-slate-700 italic">&ldquo;${student.facultyFeedback.recentNote}&rdquo;  -  <span class="font-semibold text-slate-900">${student.facultyFeedback.advisorName}</span></p>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="pt-4 border-t border-slate-200 flex items-center justify-between">
+              <span class="text-[11px] text-slate-500">Student ID: ${student.id}</span>
+              <div class="flex items-center gap-2">
+                ${student.approvalStatus === 'PENDING' ? `
+                  <button onclick="approveStudent('${student.id}'); closeMicroModal();" class="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-md transition">
+                     Authorize &amp; Approve Access
+                  </button>
+                ` : ''}
+                <button onclick="closeMicroModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition">
+                  Close Dossier
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      `;
+    }
+
+    function closeMicroModal() {
+      const modalRoot = document.getElementById('modal-root');
+      if (modalRoot) modalRoot.innerHTML = '';
+    }
+
+    function switchStudent(id) {
+      activeStudentId = id;
+      const s = students.find(x => x.id === id);
+      if (s) initChatForStudent(s);
+      resetActivity();
+      renderApp();
+    }
+
+    // ==========================================
+    // 13. FLOATING ADITI AI BOT (BOTTOM RIGHT)
+    // ==========================================
+    function renderAiBot() {
+      const botRoot = document.getElementById('ai-bot-root');
+      const student = students.find(s => s.id === activeStudentId) || students[0];
+
+      if (currentRoute !== 'STUDENT_DASHBOARD' && currentRoute !== 'STUDENT_LOGIN') {
+        botRoot.innerHTML = '';
+        return;
+      }
+
+      if (!isChatOpen) {
+        botRoot.innerHTML = `
+          <div class="fixed bottom-6 right-6 z-50">
+            <button onclick="toggleChat()" class="flex items-center gap-3 px-3.5 py-2.5 bg-gradient-to-r from-red-600 via-rose-500 to-pink-600 hover:from-red-500 hover:to-pink-500 text-white rounded-xl shadow-2xl shadow-rose-500/40 border-2 border-white/80 transition-all transform hover:scale-105 group">
+              <div class="relative flex items-center justify-center">
+                <img src="aditi-avatar.jpg" alt="Aditi AI Mentor" class="w-10 h-10 rounded-xl object-cover border-2 border-white/90 shadow-md group-hover:scale-105 transition-transform" onerror="this.src='public/aditi-avatar.jpg'" />
+                <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full animate-ping"></span>
+                <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></span>
+              </div>
+              <div class="text-left hidden sm:block">
+                <div class="text-xs font-black leading-tight flex items-center gap-1.5">
+                  <span>Aditi • Campus Pulse AI</span>
+                  <span class="text-[9px] bg-white/20 text-white border border-white/40 px-1.5 py-0.2 rounded-md font-bold">Online</span>
+                </div>
+                <div class="text-[10px] text-pink-100">Study Doubts • University Rules • Timetable</div>
+              </div>
+              <span class="bg-white/20 px-2.5 py-1 rounded-md text-[10px] font-black border border-white/40 text-white">
+                Ask Aditi
+              </span>
+            </button>
+          </div>
+        `;
+      } else {
+        botRoot.innerHTML = `
+          <div class="fixed bottom-6 right-6 z-50 w-full max-w-md sm:max-w-xl glass-panel bg-white/95 border border-rose-300 rounded-3xl shadow-2xl shadow-rose-950/20 flex flex-col h-[600px] overflow-hidden animate-fadeIn">
+            <!-- Header -->
+            <div class="p-4 bg-gradient-to-r from-red-700 via-rose-600 to-pink-600 text-white border-b border-rose-300 flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="relative">
+                  <img src="aditi-avatar.jpg" alt="Aditi AI Mentor" class="w-11 h-11 rounded-xl object-cover border-2 border-white/90 shadow-lg" onerror="this.src='public/aditi-avatar.jpg'" />
+                  <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 rounded-full border-2 border-white"></span>
+                </div>
+                <div>
+                  <h3 class="font-black text-white text-sm flex items-center gap-2">
+                    Aditi  -  Campus Pulse AI Mentor
+                    <span class="text-[10px] bg-white/20 text-white border border-white/40 px-2 py-0.2 rounded-md font-bold">
+                      Active
+                    </span>
+                  </h3>
+                  <p class="text-[11px] text-rose-100">
+                    Personalized for <strong class="text-white">${student.name}</strong> • ${student.academic.department}
+                  </p>
+                </div>
+              </div>
+
+              <button onclick="toggleChat()" class="p-2 text-rose-100 hover:text-white rounded-xl hover:bg-white/10 transition text-sm font-bold">
+                &times;
+              </button>
+            </div>
+
+            <!-- Messages Container -->
+            <div id="chat-messages-container" class="flex-1 p-4 overflow-y-auto space-y-3.5 text-xs bg-slate-50/50">
+              ${chatMessages.map(msg => `
+                <div class="flex gap-2.5 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}">
+                  ${msg.sender === 'bot' ? `<img src="aditi-avatar.jpg" alt="Aditi" class="w-7 h-7 rounded-lg object-cover border border-rose-300 flex-shrink-0 shadow-xs" onerror="this.src='public/aditi-avatar.jpg'" />` : ''}
+                  <div class="max-w-[85%] p-3.5 rounded-2xl text-xs leading-relaxed ${
+                    msg.sender === 'user'
+                      ? 'bg-gradient-to-r from-red-600 via-rose-500 to-pink-600 text-white rounded-br-none shadow-md'
+                      : 'bg-white text-slate-800 border border-slate-200 rounded-bl-none shadow-xs'
+                  }">
+                    ${formatBotText(msg.text)}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Multi-Disciplinary Action Chips -->
+            <div class="p-2.5 bg-white border-t border-slate-200 flex flex-wrap gap-1.5 text-[11px]">
+              <button onclick="askPreset('weakness')" class="px-2.5 py-1 bg-rose-100 hover:bg-rose-200 text-rose-800 border border-rose-300 rounded-lg font-bold transition flex items-center gap-1 shadow-2xs">
+                <span></span> Where am I lacking &amp; how to improve?
+              </button>
+              <button onclick="askPreset('rules')" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 rounded-lg font-semibold transition">
+                 University 75% Attendance &amp; Exam Rules
+              </button>
+              <button onclick="askPreset('study')" class="px-2.5 py-1 bg-pink-100 hover:bg-pink-200 text-pink-800 border border-pink-300 rounded-lg font-semibold transition">
+                 Subject Study &amp; Backlog Clearance Tips
+              </button>
+              <button onclick="askPreset('timetable')" class="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-lg font-semibold transition">
+                 Balanced Study &amp; Sports Timetable
+              </button>
+              <button onclick="askPreset('placement')" class="px-2.5 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 border border-emerald-300 rounded-lg font-semibold transition">
+                 Placement Cutoffs &amp; Tier-1 Eligibility
+              </button>
+            </div>
+
+            <!-- Custom Question Input Bar -->
+            <form onsubmit="handleSendCustomChat(event)" class="p-3 bg-white border-t border-slate-200 flex items-center gap-2">
+              <input
+                id="custom-chat-input"
+                type="text"
+                placeholder="Ask Aditi any university, academic, or campus question..."
+                class="flex-1 bg-slate-50 border border-slate-300 px-3.5 py-2.5 rounded-xl text-xs text-slate-900 focus:outline-none focus:border-rose-500 focus:ring-2 focus:ring-rose-200"
+              />
+              <button type="submit" class="px-4 py-2.5 bg-gradient-to-r from-red-600 via-rose-500 to-pink-600 hover:from-red-500 hover:to-pink-500 text-white rounded-xl font-bold text-xs transition shadow-md">
+                Send
+              </button>
+            </form>
+          </div>
+        `;
+
+        setTimeout(() => {
+          const container = document.getElementById('chat-messages-container');
+          if (container) container.scrollTop = container.scrollHeight;
+        }, 50);
+      }
+    }
+
+    function toggleChat() {
+      isChatOpen = !isChatOpen;
+      resetActivity();
+      if (isChatOpen && chatMessages.length === 0) {
+        const student = students.find(s => s.id === activeStudentId) || students[0];
+        initChatForStudent(student);
+      }
+      renderAiBot();
+    }
+
+    function openChatAndAsk(type) {
+      isChatOpen = true;
+      resetActivity();
+      const student = students.find(s => s.id === activeStudentId) || students[0];
+      if (chatMessages.length === 0) initChatForStudent(student);
+      askPreset(type);
+    }
+
+    // PRESET HANDLERS
+    function askPreset(type) {
+      resetActivity();
+      const student = students.find(s => s.id === activeStudentId) || students[0];
+
+      if (type === 'rules') {
+        chatMessages.push({ sender: 'user', text: 'Can you explain the official university attendance rules and examination policies?' });
+
+        const rulesReply = `###  Official University Regulations & Academic Policies (AY 2026-27)
+
+Here are the key institutional guidelines:
+
+1. **Mandatory 75% Attendance Rule:**
+   • You must maintain at least **75% physical attendance** in every individual theory & lab course.
+   • **Your Current Overall Attendance:** **${student.attendance.overallPercentage}%** ${student.attendance.overallPercentage >= 75 ? '( Fully Eligible)' : '([Alert] Critical Risk of Debarment!)'}
+   • **Medical Condonation (65%–74%):** Can only be approved by Dean Dr. Sharma upon submittal of official medical certificates within 3 days of resuming college.
+
+2. **Continuous Internal Evaluation (CIE) vs. SEE:**
+   • Minimum CIE passing cutoff: **40% marks** (20 out of 50).
+   • Semester End Exam (SEE) weightage: **50% of final grade**.
+
+3. **Supplementary Exams & Backlog Clearance:**
+   • Supplementary examinations are conducted immediately after even semester results.
+   • Fast-track remedial cells are hosted in the department seminar hall every Saturday.`;
+
+        chatMessages.push({ sender: 'bot', text: rulesReply });
+      }
+      else if (type === 'study') {
+        chatMessages.push({ sender: 'user', text: 'How should I study effectively for difficult engineering subjects and prepare for semester exams?' });
+
+        const studyReply = `###  Engineering Study Framework & Exam Strategy for ${student.name}
+
+1. **Active Recall & Spaced Repetition (The Feynman Technique):**
+   • For theory courses (like Operating Systems & Networks), summarize each topic on one page without looking at slides. Teach the concept aloud to a peer or study partner.
+
+2. **Master the 80/20 High-Yield Modules:**
+   • Past 5 years of university question papers indicate that **60% of marks** come from recurring core derivations, algorithm traces, and numerical problems.
+
+3. **Laboratory Practicals Safety:**
+   • Write and dry-run code on paper before executing in the terminal. Viva-voce examiners prioritize conceptual logic over syntax memorization.
+
+4. **Arrears Clearance Plan:**
+   • Dedicate a non-negotiable **90-minute daily focus window** exclusively to uncleared subjects before attempting new semester coursework.`;
+
+        chatMessages.push({ sender: 'bot', text: studyReply });
+      }
+      else if (type === 'placement') {
+        chatMessages.push({ sender: 'user', text: 'What are the campus placement eligibility criteria and company cutoffs?' });
+
+        const placementReply = `###  Campus Placement Eligibility & Recruitment Benchmark
+
+1. **Academic Cutoff:**
+   • **Tier-1 Tech Companies (Amazon, Microsoft, Cisco):** Minimum **7.5+ CGPA**, Zero active backlogs.
+   • **Tier-2 & Consulting:** Minimum **6.5+ CGPA**, Maximum 1 standing backlog allowed in preliminary rounds.
+   • **Your Standing:** CGPA **${student.academic.cgpa}** (${student.placement.placementDriveEligible ? ' Placement Eligible' : '[Alert] Must improve coding/interview score'}).
+
+2. **Algorithmic Coding Cutoff:**
+   • Benchmark threshold: **70/100 points** on our college HackerRank/LeetCode portal.
+   • Must be proficient in: Arrays, HashMaps, Binary Trees, BFS/DFS, Dynamic Programming basics.
+
+3. **Mock Interview Behavioral Hygiene:**
+   • Practice the STAR method (Situation, Task, Action, Result) for HR behavioral questions.`;
+
+        chatMessages.push({ sender: 'bot', text: placementReply });
+      }
+      else if (type === 'timetable') {
+        chatMessages.push({ sender: 'user', text: 'Can you generate my balanced weekly study, placement & sports timetable?' });
+
+        const ttReply = `###  Balanced Study, Placement & Sports Schedule for ${student.name}
+
+| Time Slot | Activity | Focus Objective |
+| :--- | :--- | :--- |
+| **06:30 AM – 07:45 AM** |  **Sports & Cardio Conditioning** | **${student.sports.primarySport}** (Builds stamina & reduces cortisol) |
+| **08:00 AM – 08:45 AM** |  High-Protein Breakfast | Nutrition & cognitive reset |
+| **09:00 AM – 04:30 PM** |  **College Lectures & Labs** | Protects your **${student.attendance.overallPercentage}%** attendance safety threshold |
+| **05:00 PM – 06:15 PM** |  **Evening Sports / Club Play** | Outdoor recreation to decompress academic fatigue |
+| **06:30 PM – 08:00 PM** |  **Targeted Technical Sprint** | ${student.placement.codingScore < 70 ? 'Data Structures & Algorithms (Trees/Graphs)' : 'System Design & High-Concurrency Lab'} |
+| **08:30 PM – 09:30 PM** |  **Coursework & LMS Revision** | Submit pending assignments to keep velocity high |
+| **10:00 PM – 10:30 PM** |  Wind-Down & Sleep Prep | Rest is essential for memory consolidation |
+
+>  **Holistic Sports Integration:** 75 mins of sports daily oxygenates the brain, relieving exam anxiety and building stamina for long interview drives!`;
+
+        chatMessages.push({ sender: 'bot', text: ttReply });
+      }
+      else if (type === 'weakness') {
+        chatMessages.push({ sender: 'user', text: 'Where am I lacking in my studies and what points should I follow to improve myself?' });
+        const analysis = generateStudentImprovementAnalysis(student);
+        chatMessages.push({ sender: 'bot', text: analysis });
+      }
+
+      renderAiBot();
+    }
+
+    // ==========================================
+    // 14. DIAGNOSTIC & PRESCRIPTIVE IMPROVEMENT ENGINE
+    // ==========================================
+    function generateStudentImprovementAnalysis(student) {
+      const salutation = (student.gender === 'Female') ? 'Miss.' : (student.gender === 'Male' ? 'Mr.' : 'miss/mr.');
+      
+      const weaknesses = [];
+      const actionPoints = [];
+
+      // 1. Backlogs
+      if (student.academic.activeBacklogs > 0) {
+        weaknesses.push(`[Alert] **Active Backlogs (${student.academic.activeBacklogs} Standing Arrears):** Uncleared subjects drag down your Academic Pillar and will block eligibility for Tier-1 campus placement drives.`);
+        actionPoints.push(` **Dedicated Backlog Remedial Sprint:** Allocate a non-negotiable **90-minute daily revision block** exclusively to clearing these arrear subjects. Attend the Saturday remedial tutorials in the department library block.`);
+      }
+
+      // 2. CGPA
+      if (student.academic.cgpa < 7.5) {
+        weaknesses.push(`[Alert] **CGPA Deficit (${student.academic.cgpa} / 10.0):** Your cumulative GPA is currently below the 7.50 benchmark required for top tech placements (Amazon, Microsoft, Cisco).`);
+        actionPoints.push(`↑ **Target 42+/50 in Continuous Internal Evaluations (CIE):** Focus on past 5 years of university exam question papers to guarantee high internal marks and elevate your overall CGPA above 7.5.`);
+      }
+
+      // 3. Attendance
+      if (student.attendance.overallPercentage < 75) {
+        weaknesses.push(`[Critical Alert] **Critical Attendance Deficit (${student.attendance.overallPercentage}%):** You are breaching the mandatory university 75% attendance threshold and at risk of examination debarment and hall ticket withholding.`);
+        actionPoints.push(` **Mandatory Class Attendance Recovery:** You must attend the next **15 consecutive lectures without absence** to recover above 75%. If your absences were medical, submit doctor slips to Dean Dr. Sharma within 3 days for condonation approval.`);
+      } else if (student.attendance.overallPercentage < 80) {
+        weaknesses.push(`[Alert] **Borderline Classroom Attendance (${student.attendance.overallPercentage}%):** Hovering just barely above the 75% cutoff with zero buffer for contingencies.`);
+        actionPoints.push(`⏰ **Stabilize Class Attendance:** Maintain at least 85% attendance across all subjects over the next 3 weeks to create a safe cushion before semester end exams.`);
+      }
+
+      // 4. LMS & Digital Learning Engagement
+      if (student.lms.assignmentCompletionRate < 80 || student.lms.weeklyLogins < 5) {
+        weaknesses.push(`[Alert] **LMS & Lab Assignment Deficit (${student.lms.assignmentCompletionRate}% completion, ${student.lms.weeklyLogins} logins/week):** Late lab reports and irregular LMS portal activity are lowering your Continuous Assessment score.`);
+        actionPoints.push(` **Clear Overdue LMS Submissions:** Complete and upload all pending assignments before Friday midnight. Log in at least 5 times a week to review uploaded lecture slides.`);
+      }
+
+      // 5. Placement & Algorithmic Coding
+      if (student.placement.codingScore < 70) {
+        weaknesses.push(`[Alert] **Algorithmic Coding Gap (${student.placement.codingScore}/100):** Falls short of the 70-point benchmark needed to pass initial technical screening tests for software engineering roles.`);
+        actionPoints.push(` **Daily LeetCode / Coding Sprint:** Practice 2 Data Structures problems daily (Focus on Arrays, HashMaps, Binary Trees, and Two Pointers) to raise your coding score past 75.`);
+      }
+
+      // 6. Mock Interviews & Communication
+      if (student.placement.mockInterviewRating < 70) {
+        weaknesses.push(`[Alert] **Mock Interview Performance (${student.placement.mockInterviewRating}/100):** Communication clarity, system breakdown, and behavioral answers need improvement.`);
+        actionPoints.push(` **Alumni Mock Interview Preparation:** Practice the STAR method (Situation, Task, Action, Result) for behavioral questions and practice dry-running algorithms on paper.`);
+      }
+
+      // Negative XAI Drivers
+      const negDrivers = student.xaiDrivers ? student.xaiDrivers.filter(d => d.type === 'NEGATIVE') : [];
+      negDrivers.forEach(d => {
+        if (!weaknesses.some(w => w.includes(d.feature))) {
+          weaknesses.push(`[Alert] **${d.feature} (${d.impact} pts):** ${d.desc}`);
+        }
+      });
+
+      // Prescriptive Actions
+      if (student.actions && student.actions.length > 0) {
+        student.actions.forEach(a => {
+          if (!actionPoints.some(ap => ap.includes(a.title))) {
+            actionPoints.push(` **${a.title} (+${a.impact} pts):** ${a.desc}`);
+          }
+        });
+      }
+
+      // Top Performer fallback
+      if (weaknesses.length === 0) {
+        weaknesses.push(`[Excellence] **Outstanding Academic Foundation:** You have strong performance across all pillars (CGPA: ${student.academic.cgpa}, Attendance: ${student.attendance.overallPercentage}%, Coding: ${student.placement.codingScore}/100, Success Score: ${student.successScore.overall}/100).`);
+        actionPoints.push(`[Action] **Prepare for Super Dream Tech Roles (24+ LPA):** Build advanced distributed systems, contribute to open source repositories, and mentor peers in university coding clubs.`);
+      }
+
+      // Physical / Sports balance
+      actionPoints.push(` **Maintain Sports & Physical Conditioning:** Continue your **${student.sports.weeklyHours}h/week** in **${student.sports.primarySport}** to reduce mental burnout and sustain stamina for 4-hour placement marathons.`);
+
+      let reply = `###  Academic Diagnostic & Self-Improvement Plan for ${salutation} ${student.name}\n\n`;
+      reply += `I have evaluated your live records across all institutional pillars (Success Score: **${student.successScore.overall}/100**, Risk Level: **${student.risk.academicRisk} Academic / ${student.risk.placementRisk} Placement**). Here is exactly where you are lacking and the specific points you should execute to improve:\n\n`;
+      
+      reply += `#### <svg class="w-4 h-4 text-rose-600 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg> Where You Are Currently Lacking in Studies:\n`;
+      weaknesses.forEach((w, idx) => {
+        reply += `${idx + 1}. ${w}\n`;
+      });
+
+      reply += `\n---\n\n#### [Action] Action Points to Improve Yourself:\n`;
+      actionPoints.forEach((a, idx) => {
+        reply += `${idx + 1}. ${a}\n`;
+      });
+
+      return reply;
+    }
+
+    // Domain Whitelist Checker for Aditi AI
+    function isUniversityQuery(query) {
+      const q = query.toLowerCase();
+      const universityKeywords = [
+        // University institutions, campus & faculty
+        'univ', 'college', 'campus', 'institution', 'rvce', 'semester', 'sem', 'dept', 'department',
+        'academic', 'academics', 'faculty', 'professor', 'prof', 'dean', 'hod', 'mentor', 'teacher',
+        'instructor', 'syllabus', 'course', 'curriculum', 'lecture', 'class', 'classroom', 'credit',
+        // Performance, grading & marks
+        'cgpa', 'sgpa', 'gpa', 'grade', 'marks', 'score', 'pointer', 'result', 'percentage', 'rank',
+        'evaluat', 'feedback', 'satisfaction',
+        // Diagnostic & improvement queries
+        'lack', 'lacking', 'weak', 'weakness', 'weaknesses', 'improve', 'improving', 'improvement',
+        'lag', 'lagging', 'behind', 'struggle', 'struggling', 'point', 'points', 'action', 'actions',
+        'flaw', 'shortcoming', 'performance', 'better', 'help', 'studies', 'study',
+        // Exams & evaluations
+        'exam', 'examination', 'cie', 'see', 'internal', 'midterm', 'mid term', 'endsem', 'end sem',
+        'test', 'quiz', 'hall ticket', 'admit card', 'question paper', 'reval', 'revaluation', 'viva', 'practical',
+        // University rules, attendance, condonation, administration
+        'attendance', 'condonation', 'condon', 'medical', 'debar', 'rule', 'rules', 'regulation', 'policy',
+        'leave', 'permission', 'gate pass', 'fee', 'fees', 'scholarship', 'due', 'dues', 'circular', 'notice',
+        // Backlogs & remedial
+        'backlog', 'backlogs', 'arrear', 'arrears', 'fail', 'failed', 'supplementary', 'remedial', 'clearance',
+        // Placements & career
+        'placement', 'placements', 'interview', 'interviews', 'job', 'offer', 'package', 'ctc', 'lpa',
+        'company', 'companies', 'recruitment', 'recruiter', 'hire', 'hiring', 'aptitude', 'resume', 'intern', 'internship',
+        // Subjects, coding & coursework doubts
+        'dsa', 'data structure', 'algorithm', 'coding', 'code', 'leetcode', 'hackerrank', 'python', 'java', 'c++',
+        'sql', 'database', 'dbms', 'operating system', 'os', 'deadlock', 'process', 'thread', 'memory',
+        'network', 'networks', 'tcp', 'udp', 'ip', 'software', 'sdlc', 'oop', 'web', 'cloud', 'ai', 'ml',
+        'machine learning', 'math', 'maths', 'lab', 'laboratory', 'assignment', 'homework', 'project', 'submission',
+        // Campus facilities & student life
+        'library', 'hostel', 'canteen', 'mess', 'cafeteria', 'auditorium', 'club', 'clubs', 'hackathon',
+        'fest', 'event', 'events', 'sports', 'sport', 'cricket', 'football', 'badminton', 'athletics', 'gym', 'fitness',
+        // Study plans & student success metrics
+        'study', 'studying', 'prepare', 'preparation', 'revision', 'revising', 'schedule', 'timetable', 'time table',
+        'routine', 'tips', 'advice', 'success score', 'risk'
+      ];
+      return universityKeywords.some(kw => q.includes(kw));
+    }
+
+    function handleSendCustomChat(e) {
+      e.preventDefault();
+      resetActivity();
+      const input = document.getElementById('custom-chat-input');
+      const query = input.value.trim();
+      if (!query) return;
+
+      const student = students.find(s => s.id === activeStudentId) || students[0];
+      chatMessages.push({ sender: 'user', text: query });
+      input.value = '';
+      renderAiBot();
+
+      setTimeout(() => {
+        let reply = '';
+        const q = query.toLowerCase();
+
+        // 1. Strict Boundary Check: Check if question is outside University domain
+        const greetings = ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening', 'who are you', 'what can you do'];
+        const isGreeting = greetings.some(g => q === g || q.startsWith(g + ' ') || q.startsWith(g + '!'));
+
+        const salutation = (student.gender === 'Female') ? 'Miss.' : (student.gender === 'Male' ? 'Mr.' : 'miss/mr.');
+
+        if (isGreeting) {
+          reply = `Hello **${student.name}**! I am **Aditi**, your **Campus Pulse AI Mentor**.\n\n**Notice:** Sorry ${salutation} ${student.name}, I am not obligated to answer any question which does not concern the university or ur studies.\n\nYou can consult me on:\n• **University Rules:** 75% attendance policy, medical condonation, CIE/SEE exams\n•  **Academic & Subject Doubts:** DSA, OS, DBMS, backlogs & study plans\n• **Campus Placements:** Tier-1 eligibility criteria, coding benchmarks\n• **Campus Facilities & Timetable:** Library timings, lab hours & study schedules\n\nWhat university question can I help you with?`;
+        } else if (!isUniversityQuery(query)) {
+          // STRICT REFUSAL FOR ANY NON-UNIVERSITY QUERY
+          reply = `Sorry ${salutation} ${student.name}, I am not obligated to answer any question which does not concern the university or ur studies.`;
+        } else {
+          // 2. Verified University / Academic / Campus Query
+          
+          // Check for diagnostic & improvement requests
+          const isImprovementQuery = 
+            q.includes('lack') || q.includes('lacking') ||
+            q.includes('weak') || q.includes('weakness') || q.includes('weaknesses') ||
+            q.includes('improve') || q.includes('improvement') || q.includes('improving') ||
+            q.includes('lag') || q.includes('lagging') ||
+            q.includes('behind') || q.includes('struggle') || q.includes('struggling') ||
+            q.includes('shortcoming') || q.includes('flaw') ||
+            q.includes('what should i do') || q.includes('what to do') ||
+            q.includes('action plan') || q.includes('action point') || q.includes('action item') ||
+            (q.includes('point') && (q.includes('improve') || q.includes('study') || q.includes('studies'))) ||
+            (q.includes('where') && (q.includes('study') || q.includes('studies') || q.includes('student') || q.includes('i ')));
+
+          if (isImprovementQuery) {
+            reply = generateStudentImprovementAnalysis(student);
+          } else if (q.includes('attendance') || q.includes('medical') || q.includes('debar') || q.includes('hall ticket')) {
+            reply = `Regarding **University Attendance Policies**:\n• You need a strict minimum of **75% attendance** per subject to receive your exam hall ticket.\n• Your current attendance is **${student.attendance.overallPercentage}%**.\n• If your attendance is between 65% and 74% due to medical reasons, submit a registered medical certificate to Dean Dr. Sharma within 3 days for condonation review.`;
+          } else if (q.includes('backlog') || q.includes('arrear') || q.includes('fail') || q.includes('supplementary') || q.includes('remedial')) {
+            reply = `Regarding **Backlogs & Arrears Clearance**:\n• Active backlogs: **${student.academic.activeBacklogs}**.\n• Supplementary exam registration opens 2 weeks before semester-end results.\n• Remedial study sessions are available every Saturday morning in the CS department library block.\n• Suggested plan: Dedicate a non-negotiable 90-minute daily revision block exclusively to uncleared subjects.`;
+          } else if (q.includes('cgpa') || q.includes('grade') || q.includes('marks') || q.includes('pointer')) {
+            reply = `Your current Cumulative GPA is **${student.academic.cgpa} / 10.0**.\n• Grade 9.0+ = O (Outstanding)\n• Grade 8.0 - 8.9 = A+ (Excellent)\n• Grade 7.0 - 7.9 = A (Very Good)\nMaintaining a 7.5+ CGPA guarantees placement eligibility for all Tier-1 visiting companies.`;
+          } else if (q.includes('placement') || q.includes('interview') || q.includes('company') || q.includes('package') || q.includes('salary')) {
+            reply = `For **Campus Placements & Recruitment Criteria**:\n• Coding benchmark: **${student.placement.codingScore}/100**\n• Mock Interview score: **${student.placement.mockInterviewRating}/100**\n• Tier-1 cutoffs (Amazon, Microsoft, Cisco): Minimum 7.5+ CGPA, 0 active backlogs, and 70+ coding score.\n• To secure top tech offers (18+ LPA), solve at least 250 LeetCode problems and master system design fundamentals.`;
+          } else if (q.includes('dsa') || q.includes('data structure') || q.includes('algorithm') || q.includes('tree') || q.includes('graph') || q.includes('dynamic programming')) {
+            reply = `**Data Structures & Algorithms Coursework Guidance**:\n• **High-Yield Exam & Placement Topics:** Two Pointers, Sliding Window, Trees (Inorder/Preorder/Postorder traversals), Graphs (BFS/DFS, Dijkstra), and Dynamic Programming (0/1 Knapsack, LCS).\n• **Exam Tip:** Always state Time Complexity $\\mathcal{O}(...)$ and Space Complexity explicitly for full step marks!`;
+          } else if (q.includes('os') || q.includes('operating system') || q.includes('deadlock') || q.includes('process') || q.includes('semaphore')) {
+            reply = `**Operating Systems Subject Guidance**:\n• **Core Exam Focus:** Process Synchronization (Mutex vs Semaphores), Deadlock Coffman conditions & Banker's Algorithm, Virtual Memory Paging & LRU Page Replacement.\n• **University Exam Tip:** Draw clean Gantt charts for CPU scheduling (FCFS, SJF, Round Robin) to secure maximum marks.`;
+          } else if (q.includes('dbms') || q.includes('database') || q.includes('sql') || q.includes('normalization')) {
+            reply = `**DBMS Subject Guidance**:\n• **Core Exam Focus:** ACID properties, Normalization (1NF to BCNF with functional dependencies), B+ Tree Indexing, and SQL Joins.\n• **Lab Viva Tip:** Be ready to write raw SQL queries on paper with GROUP BY and HAVING clauses.`;
+          } else if (q.includes('network') || q.includes('tcp') || q.includes('udp') || q.includes('ip')) {
+            reply = `**Computer Networks Subject Guidance**:\n• **Core Exam Focus:** OSI 7-Layer model vs TCP/IP stack, TCP 3-Way Handshake vs UDP, Subnet Masking (CIDR notation), and Routing algorithms.\n• **Exam Tip:** Draw neat packet header diagrams and connection state transitions.`;
+          } else if (q.includes('library') || q.includes('hostel') || q.includes('canteen') || q.includes('lab') || q.includes('faculty') || q.includes('dean') || q.includes('office')) {
+            reply = `**Campus Facilities & Administrative Guide**:\n• **Central Library:** Open 8:00 AM – 10:00 PM on weekdays with digital IEEE access.\n• **Dean's Office (Dr. Sharma):** Student interaction hours every Tuesday & Thursday from 3:00 PM – 4:30 PM (Admin Block, Room 204).\n• **Department Laboratories:** Open 8:30 AM – 5:30 PM with proctor supervision.\n• **Campus Sports Complex:** Open 6:00 AM – 8:00 AM and 4:30 PM – 7:30 PM daily.`;
+          } else if (q.includes('sport') || q.includes('cricket') || q.includes('football') || q.includes('badminton') || q.includes('gym') || q.includes('fitness')) {
+            reply = `**Balancing Sports with University Academics**:\n• You are currently logging **${student.sports.weeklyHours}h/week** in **${student.sports.primarySport}**.\n• Physical activity releases neurotrophic factors that improve focus during grueling 3-hour university examinations.\n• Representing the university in zonal athletic tournaments also grants institutional attendance condonation credits!`;
+          } else if (q.includes('how to study') || q.includes('prepare') || q.includes('tips') || q.includes('schedule') || q.includes('timetable')) {
+            reply = `**Customized Study & Exam Preparation Plan for ${student.name}**:\n1. Dedicate 2 hours of deep focus coding between 6:30 PM - 8:30 PM daily.\n2. Keep 1 hour in the morning or evening for **${student.sports.primarySport}**.\n3. Review continuous evaluation slides on weekends to avoid last-minute semester cramming.`;
+          } else {
+            reply = `Regarding your university query, **${student.name}**:\n• As your Campus Pulse mentor, I recommend reviewing the latest department circular on the college LMS portal and consulting with your designated faculty advisor.\n• Feel free to ask more specific questions about engineering subject concepts, university attendance rules, backlog clearance, or placement cutoffs!`;
+          }
+        }
+
+        chatMessages.push({ sender: 'bot', text: reply });
+        renderAiBot();
+      }, 400);
+    }
+
+    function formatBotText(str) {
+      return str
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\`(.*?)\`/g, '<code class="bg-rose-50 px-1 py-0.5 rounded text-rose-700 font-mono border border-rose-200">$1</code>')
+        .replace(/\n/g, '<br/>');
+    }
+
+    // ==========================================
+    // 15. CONTROLLER & CREDENTIAL HANDLERS
+    // ==========================================
+    function autofillStudent(usn) {
+      document.getElementById('student-usn').value = usn;
+      document.getElementById('student-pwd').value = 'password123';
+      resetActivity();
+    }
+
+    function handleStudentLogin(e) {
+      e.preventDefault();
+      resetActivity();
+      const usnInput = document.getElementById('student-usn').value.trim().toUpperCase();
+      const found = students.find(s => s.usn.toUpperCase() === usnInput);
+
+      if (!found) {
+        loginErrorMessage = `No student record found for USN "${usnInput}". Please check your USN or register.`;
+        renderApp();
+        return;
+      }
+
+      loginErrorMessage = '';
+      activeStudentId = found.id;
+      initChatForStudent(found);
+      navigateTo('STUDENT_DASHBOARD');
+      showToast(`Welcome back, ${found.name}! Signed in to Campus Pulse.`);
+    }
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      resetActivity();
+      const emailInput = document.getElementById('admin-email').value.trim().toLowerCase();
+      const pwdInput = document.getElementById('admin-pwd').value.trim();
+
+      if (emailInput !== 'dean.academics@rvce.edu.in' || pwdInput !== 'admin123') {
+        loginErrorMessage = 'Invalid faculty credentials. Access denied.';
+        renderApp();
+        return;
+      }
+
+      loginErrorMessage = '';
+      navigateTo('ADMIN_DASHBOARD');
+      showToast("Access Authorized: Dean Dr. Sharma Console Active.");
+    }
+
+    function approveStudent(id) {
+      resetActivity();
+      students = students.map(s => s.id === id ? { ...s, approvalStatus: 'APPROVED' } : s);
+      renderApp();
+      showToast("Account Approved! Student portal unlocked.");
+    }
+
+    function rejectStudent(id) {
+      resetActivity();
+      students = students.map(s => s.id === id ? { ...s, approvalStatus: 'REJECTED' } : s);
+      renderApp();
+      showToast("Account access rejected.");
+    }
+
+    function handleSearch(val) {
+      resetActivity();
+      searchQuery = val;
+      renderApp();
+    }
+
+    function handleRegistration(e) {
+      e.preventDefault();
+      resetActivity();
+      const name = document.getElementById('reg-name').value.trim();
+      const usn = document.getElementById('reg-usn').value.trim().toUpperCase();
+      const sem = document.getElementById('reg-sem').value;
+      const dept = document.getElementById('reg-dept').value;
+      const pwd = document.getElementById('reg-pwd').value;
+
+      if (students.some(s => s.usn.toUpperCase() === usn)) {
+        loginErrorMessage = `An account with USN "${usn}" already exists.`;
+        renderApp();
+        return;
+      }
+
+      const newId = 'stu-' + Date.now();
+      const newStu = {
+        id: newId,
+        usn: usn,
+        password: pwd,
+        name: name,
+        gender: 'Male',
+        avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
+        approvalStatus: 'PENDING',
+        requestedAt: 'Just now',
+        sports: { primarySport: 'Football & Athletic Track', weeklyHours: 4, fitnessLevel: 'Active', staminaNeed: 'High' },
+        academic: { department: dept, semester: Number(sem), cgpa: 7.6, cgpaDelta: '↑ Baseline', cgpaTrend: 'UP', activeBacklogs: 0 },
+        attendance: { overallPercentage: 80, attendanceDelta: '↑ Baseline', attendanceTrend: 'UP' },
+        lms: { weeklyLogins: 5, assignmentCompletionRate: 80, lmsDelta: '↑ Baseline', lmsTrend: 'UP' },
+        placement: { codingScore: 65, codingDelta: '↑ Baseline', codingTrend: 'UP', aptitudeScore: 70, mockInterviewRating: 68, placementDriveEligible: false },
+        skills: { technicalIndex: 70, softSkillsRating: 4.0, competencies: ['Core Programming', 'Web Basics'] },
+        facultyFeedback: { sentiment: 'NEUTRAL', advisorName: 'Proctorial Cell', recentNote: 'Pending onboarding interview with department proctor.', date: 'Just now' },
+        successScore: { overall: 70 },
+        risk: { academicRisk: 'LOW', placementRisk: 'LOW', primaryRiskReason: 'Newly registered, awaiting faculty verification.' },
+        cohort: { label: 'Newly Registered', badgeColor: 'bg-rose-50 text-rose-700 border-rose-200' },
+        xaiDrivers: [
+          { feature: 'New Registration Submitted', impact: 10, type: 'POSITIVE', desc: 'Academic records ingested.' },
+          { feature: 'Pending Verification Hold', impact: -5, type: 'NEGATIVE', desc: 'Awaiting Dean authorization.' }
+        ],
+        actions: [
+          { title: 'Faculty Verification', desc: 'Awaiting mentor credential sign-off.', impact: 5 }
+        ]
+      };
+
+      students.unshift(newStu);
+      activeStudentId = newId;
+      initChatForStudent(newStu);
+      loginErrorMessage = '';
+      navigateTo('STUDENT_DASHBOARD');
+      showToast(`Account registered for ${name}! Security status: PENDING.`);
+    }
+
+    // INITIAL LAUNCH: RENDER STUDENT LOGIN SCREEN FIRST & START INACTIVITY MONITOR
+    renderApp();
+    startInactivityMonitor();
+  </script>
+</body>
+</html>

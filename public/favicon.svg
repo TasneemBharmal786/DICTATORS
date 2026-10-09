@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="crestGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#be123c" />
+      <stop offset="100%" stop-color="#881337" />
+    </linearGradient>
+    <linearGradient id="pulseGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fda4af" />
+      <stop offset="100%" stop-color="#ffffff" />
+    </linearGradient>
+  </defs>
+  <!-- Institutional Shield Base -->
+  <path d="M32 4 L56 12 V32 C56 46 45 56 32 60 C19 56 8 46 8 32 V12 Z" fill="url(#crestGrad)" stroke="#4c0519" stroke-width="2"/>
+  <!-- Silver Border Accent -->
+  <path d="M32 8 L52 15 V32 C52 43 43 52 32 55 C21 52 12 43 12 32 V15 Z" fill="none" stroke="#f1f5f9" stroke-width="1.5" opacity="0.6"/>
+  <!-- Institutional Academic Pillar / Arch -->
+  <rect x="22" y="24" width="4" height="18" rx="1" fill="#f8fafc" />
+  <rect x="38" y="24" width="4" height="18" rx="1" fill="#f8fafc" />
+  <path d="M19 23 L32 16 L45 23 Z" fill="#f8fafc" />
+  <rect x="18" y="42" width="28" height="3" rx="1" fill="#f8fafc" />
+  <!-- Pulse Line Accent -->
+  <path d="M14 33 L24 33 L28 26 L32 38 L36 29 L40 33 L50 33" fill="none" stroke="url(#pulseGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

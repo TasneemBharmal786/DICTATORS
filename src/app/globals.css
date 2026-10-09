@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-200 text-slate-900 antialiased min-h-screen selection:bg-rose-500 selection:text-white;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-image: 
+      radial-gradient(circle at 12% 15%, rgba(244, 63, 94, 0.08) 0%, transparent 45%),
+      radial-gradient(circle at 88% 12%, rgba(239, 68, 68, 0.07) 0%, transparent 45%),
+      radial-gradient(circle at 50% 85%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+      linear-gradient(135deg, #e6ebf2 0%, #cbd5e1 35%, #e2e8f0 70%, #c5cfdb 100%);
+    background-attachment: fixed;
+  }
+}
+
+/* Glassmorphism helpers for Silver Theme */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 30px -5px rgba(225, 29, 72, 0.07), 0 4px 14px -2px rgba(100, 116, 139, 0.12);
+}
+
+.glass-panel-subtle {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.glass-card-hover {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(244, 63, 94, 0.4);
+  box-shadow: 0 10px 25px -5px rgba(225, 29, 72, 0.15);
+}
+
+/* Custom Scrollbar in Rose / Pink */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #e2e8f0;
+}
+::-webkit-scrollbar-thumb {
+  background: #f43f5e;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #e11d48;
+}
