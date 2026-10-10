@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
 import {
   GraduationCap,
@@ -11,17 +13,22 @@ import {
   School,
   User,
   LogOut,
+  Database,
+  Users,
+  UploadCloud,
+  LayoutDashboard,
 } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
   const { role, currentStudent, students, setActiveStudentId, activeStudentId, setIsLoggedOut } = useApp();
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-30 glass-panel border-b border-slate-300 bg-white/85 backdrop-blur-md shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Brand / Logo */}
-        <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-red-600 via-rose-500 to-pink-500 p-0.5 shadow-md shadow-rose-500/25 flex items-center justify-center">
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="h-10 w-10 rounded-xl bg-gradient-to-tr from-red-600 via-rose-500 to-pink-500 p-0.5 shadow-md shadow-rose-500/25 flex items-center justify-center group-hover:scale-105 transition">
             <div className="h-full w-full bg-white rounded-[10px] flex items-center justify-center">
               <GraduationCap className="w-5 h-5 text-rose-600" />
             </div>
@@ -40,18 +47,51 @@ export const Navbar: React.FC = () => {
               Institutional Intelligence &amp; Student Success Platform
             </p>
           </div>
-        </div>
+        </Link>
 
-        {/* Center: Active View Badge */}
-        <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/90 border border-slate-300 text-xs shadow-xs">
-          <School className="w-3.5 h-3.5 text-rose-500" />
-          <span className="text-slate-500">Environment:</span>
-          <span className="font-bold text-slate-800">
-            {role === 'ADMIN' ? 'Dean & Faculty Affairs Console' : 'Personal Student Portal'}
-          </span>
-          <span className="text-slate-400">•</span>
-          <span className="text-rose-600 font-mono text-[11px] font-bold">AY 2026-27</span>
-        </div>
+        {/* Center: Navigation Links */}
+        <nav className="hidden md:flex items-center gap-1 bg-slate-100/80 p-1 rounded-xl border border-slate-300 text-xs font-bold">
+          <Link
+            href="/"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition ${
+              pathname === '/'
+                ? 'bg-white text-rose-700 shadow-2xs font-extrabold'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+            }`}
+          >
+            <LayoutDashboard className="w-3.5 h-3.5" />
+            <span>Dashboard</span>
+          </Link>
+
+          <Link
+            href="/students"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition ${
+              pathname?.startsWith('/students')
+                ? 'bg-white text-rose-700 shadow-2xs font-extrabold'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+            }`}
+          >
+            <Users className="w-3.5 h-3.5" />
+            <span>Student Repository</span>
+          </Link>
+
+          {role === 'ADMIN' && (
+            <Link
+              href="/admin/data-upload"
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition ${
+                pathname === '/admin/data-upload'
+                  ? 'bg-white text-rose-700 shadow-2xs font-extrabold'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
+              }`}
+            >
+              <UploadCloud className="w-3.5 h-3.5 text-rose-600" />
+              <span>Data Ingestion</span>
+              <span className="px-1.5 py-0.2 rounded text-[9px] bg-rose-100 text-rose-800 font-mono font-black">
+                P2
+              </span>
+            </Link>
+          )}
+        </nav>
 
         {/* Right: User Profile & Quick Switcher */}
         <div className="flex items-center gap-3">

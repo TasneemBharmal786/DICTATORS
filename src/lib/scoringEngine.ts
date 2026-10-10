@@ -12,6 +12,7 @@ import {
   CohortType,
   XaiDriver,
   PrescriptiveAction,
+  Student,
 } from '@/types/student';
 
 /**
@@ -454,4 +455,63 @@ export function generatePrescriptiveActions(params: {
   }
 
   return actions;
+}
+
+/**
+ * Re-evaluate all engine outputs for a student record after data updates/imports
+ */
+export function recalculateStudentScores(student: Student): Student {
+  const successScore = calculateSuccessScore({
+    academic: student.academic,
+    attendance: student.attendance,
+    lms: student.lms,
+    engagement: student.engagement,
+    placement: student.placement,
+    skills: student.skills,
+    feedback: student.feedback,
+  });
+
+  const risk = determineRiskAnalysis({
+    academic: student.academic,
+    attendance: student.attendance,
+    lms: student.lms,
+    placement: student.placement,
+    successScore: successScore.overall,
+  });
+
+  const cohort = determineCohort({
+    academic: student.academic,
+    attendance: student.attendance,
+    lms: student.lms,
+    placement: student.placement,
+    engagement: student.engagement,
+    successScore: successScore.overall,
+    risk,
+  });
+
+  const xaiDrivers = generateXaiDrivers({
+    academic: student.academic,
+    attendance: student.attendance,
+    placement: student.placement,
+    lms: student.lms,
+    engagement: student.engagement,
+    skills: student.skills,
+  });
+
+  const actionableInsights = generatePrescriptiveActions({
+    academic: student.academic,
+    attendance: student.attendance,
+    lms: student.lms,
+    placement: student.placement,
+    risk,
+  });
+
+  return {
+    ...student,
+    successScore,
+    risk,
+    cohort,
+    xaiDrivers,
+    actionableInsights,
+  };
 }

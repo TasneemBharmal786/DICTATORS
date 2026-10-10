@@ -150,4 +150,39 @@ export interface Student {
   xaiDrivers: XaiDriver[];
   actionableInsights: PrescriptiveAction[];
   actions?: { title: string; desc?: string; impact?: number }[];
+  sourceCoverage?: Record<string, { available: boolean; lastUpdated: string }>;
+  dataCompleteness?: 'Complete' | 'Partial' | 'Missing';
+}
+
+export type DatasetType =
+  | 'ACADEMIC'
+  | 'ATTENDANCE'
+  | 'LMS'
+  | 'PLACEMENT'
+  | 'SKILLS'
+  | 'ENGAGEMENT'
+  | 'FEEDBACK';
+
+export interface RowValidationError {
+  rowNumber: number;
+  studentId: string;
+  field: string;
+  suppliedValue: string;
+  errorDescription: string;
+  suggestedFix: string;
+}
+
+export interface UploadBatchHistory {
+  batchId: string;
+  datasetType: DatasetType;
+  fileName: string;
+  uploadedAt: string;
+  totalRows: number;
+  validRows: number;
+  invalidRows: number;
+  importedRows: number;
+  skippedRows: number;
+  duplicateRows: number;
+  unmatchedRows: number;
+  status: 'SUCCESS' | 'PARTIAL' | 'FAILED';
 }
